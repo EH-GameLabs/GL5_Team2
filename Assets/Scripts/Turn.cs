@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Turn
@@ -7,7 +8,8 @@ public class Turn
     public enum TurnState
     {
         Begin,
-        Activation,
+        MainPahse,
+        ActivationPhase,
         End,
     }
 
@@ -26,23 +28,31 @@ public class Turn
 
         // Logica per iniziare il turno
         Debug.Log("Inizio turno: " + turnType);
+
+        // Il giocatore pesca 5 carte.
+        // Ricarica le 3 Risorse Mentali(RM) all’inizio di ogni turno.
+
+        MainPhase();
     }
 
-    public void ActivationTurn()
+    public void MainPhase()
     {
-        turnState = TurnState.Activation;
+        turnState = TurnState.MainPahse;
+        Debug.Log("MainPhase: " + turnType);
 
+        // Il Giocatore può giocare massimo 4 carte della sua mano.
+        // Può mettere le carte nell’ordine che preferisce.
+        // Il Giocatore clicca un determinato oggetto/ pulsante per terminare il turno.
+
+    }
+
+    public void ActivationPhase()
+    {
+        turnState = TurnState.ActivationPhase;
         // Logica di attivazione di effetti delle carte
         Debug.Log("Attivazione carte: " + turnType);
 
-        // Una volta finite le attivazioni possibili delle carte si passa alla fine del turno
-        ExecuteAfterDelay();
-    }
-
-    public async void ExecuteAfterDelay()
-    {
-        Debug.Log("Attendo 2 secondi...");
-        await Task.Delay(2000);
+        //await Task.Delay(2000);
         Debug.Log("-> End Turn!");
         EndTurn();
     }

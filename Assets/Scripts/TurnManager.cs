@@ -18,12 +18,21 @@ public class TurnManager : MonoBehaviour
     public void StartGame()
     {
         currentTurn = new Turn(turnType);
+
+        // Il giocatore sceglie una Maschera, che determina bonus e malus iniziali.
+
         currentTurn.BeginTurn();
     }
 
     public void ActivateCardsEffects()
     {
-        currentTurn.ActivationTurn();
+        if (currentTurn.turnState != Turn.TurnState.MainPahse)
+        {
+            Debug.LogWarning("Non puoi attivare gli effetti delle carte in questo momento.");
+            return;
+        }
+
+        currentTurn.ActivationPhase();
     }
 
     public void ChangeTurn()

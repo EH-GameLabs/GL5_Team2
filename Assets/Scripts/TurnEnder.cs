@@ -29,5 +29,6 @@ public class TurnEnder : MonoBehaviour, IInteractable
     {
         // Logica per gestire il click
         Debug.Log("Click su TurnEnder");
+        TurnManager.Instance.ActivateCardsEffects();
     }
 }
