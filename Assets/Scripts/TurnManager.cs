@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
@@ -8,11 +9,17 @@ public class TurnManager : MonoBehaviour
 
     public TurnType turnType;
     public Turn currentTurn;
+    public List<GameObject> cardSlot = new List<GameObject>();
 
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         Instance = this;
+    }
+
+    private void Start()
+    {
+        StartGame();
     }
 
     public void StartGame()
@@ -32,7 +39,7 @@ public class TurnManager : MonoBehaviour
             return;
         }
 
-        currentTurn.ActivationPhase();
+        _ = currentTurn.ActivationPhase(cardSlot);
     }
 
     public void ChangeTurn()

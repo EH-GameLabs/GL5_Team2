@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -29,10 +30,18 @@ public class Turn
         // Logica per iniziare il turno
         Debug.Log("Inizio turno: " + turnType);
 
-        // Il giocatore pesca 5 carte.
-        // Ricarica le 3 Risorse Mentali(RM) all’inizio di ogni turno.
-
-        MainPhase();
+        if (turnType == TurnType.Player)
+        {
+            // Il Giocatore pesca 5 carte.
+            // Ricarica le 3 Risorse Mentali(RM) all’inizio di ogni turno.
+            Debug.Log("Pesca carte e ricarica RM");
+            MainPhase();
+        }
+        else
+        {
+            // L'Avversario pesca 5 carte.
+            Debug.Log("Pesca carte avversario");
+        }
     }
 
     public void MainPhase()
@@ -46,11 +55,30 @@ public class Turn
 
     }
 
-    public void ActivationPhase()
+    public async Task ActivationPhase(List<GameObject> cardSlot)
     {
         turnState = TurnState.ActivationPhase;
         // Logica di attivazione di effetti delle carte
         Debug.Log("Attivazione carte: " + turnType);
+
+        // Esegui gli effetti delle carte
+        foreach (GameObject card in cardSlot)
+        {
+            // Esegui l'effetto della carta
+            Card cardComponent = card.GetComponentInChildren<Card>();
+            if (cardComponent != null)
+            {
+                // Esegui l'effetto della carta
+                Debug.Log("Attivazione effetto carta: "/* + cardComponent.cardData.cardName*/);
+                // cardComponent.ActivateEffect();
+                await Task.Delay(2000);
+                GameObject.Destroy(cardComponent.gameObject);
+            }
+            else
+            {
+                Debug.LogWarning("Nessun componente Card trovato su: " + card.name);
+            }
+        }
 
         //await Task.Delay(2000);
         Debug.Log("-> End Turn!");

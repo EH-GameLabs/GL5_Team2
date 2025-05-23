@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class Card : MonoBehaviour, IInteractable
 {
     [Header("Card Data")]
-    [SerializeField] private SO_Card cardData;
+    public SO_Card cardData;
 
     [Header("Interactable")]
     [SerializeField] private GameObject interactableObj;

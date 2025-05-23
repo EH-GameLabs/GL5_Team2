@@ -27,7 +27,7 @@ public class PointerManager : MonoBehaviour
     {
         // 1) Provo il raycast dal mouse
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
+
 
         if (!dragging)
         {
@@ -39,24 +39,29 @@ public class PointerManager : MonoBehaviour
 
         if (Input.GetMouseButton(0) && hitting)
         {
-                rayHitPosition = hit.point;
-                card.position = rayHitPosition + offset;
+            rayHitPosition = hit.point;
+            card.position = rayHitPosition + offset;
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             currentHovered = null;
             dragging = false;
-            if (hitting && hit.collider.CompareTag("Slot"))
+
+            Debug.Log("hit: " + hit.transform.name);
+            Debug.Log("Hit has CARD: " + hit.transform.GetComponentInChildren<Card>() == null);
+
+            if (hitting && hit.collider.CompareTag("Slot") && hit.transform.GetComponentInChildren<Card>() == null)
             {
                 card.position = hit.transform.position;
+                card.transform.SetParent(hit.transform);
             }
             else
             {
                 //card.SetPositionAndRotation(originPosition, Quaternion.Euler(originRotation));
                 card.rotation = Quaternion.Euler(originRotation);
-                card.GetComponent<Card>().OnExitHover();
-                card.GetComponent<Card>().SetIntectableObj(false); // Riattivo l'hover della carta
+                card?.GetComponent<Card>().OnExitHover();
+                card?.GetComponent<Card>().SetIntectableObj(false); // Riattivo l'hover della carta
             }
         }
     }
@@ -85,6 +90,9 @@ public class PointerManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && currentHovered != null)
         {
             currentHovered.OnClick();
+
+            if (currentHovered is not Card) return;
+
             card = ((MonoBehaviour)currentHovered).transform;
             originPosition = card.position;
             originRotation = card.rotation.eulerAngles; // Salvo la rotazione originale
