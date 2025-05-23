@@ -15,20 +15,20 @@ public class TurnEnder : MonoBehaviour, IInteractable
     public void OnHover()
     {
         // Logica per gestire l'hover
-        Debug.Log("Hover su TurnEnder");
+        //Debug.Log("Hover su TurnEnder");
         meshRenderer.material = hoverMaterial;
 
     }
     public void OnExitHover()
     {
         // Logica per gestire l'uscita dall'hover
-        Debug.Log("Uscita hover su TurnEnder");
+        //Debug.Log("Uscita hover su TurnEnder");
         meshRenderer.material = defaultMaterial;
     }
     public void OnClick()
     {
         // Logica per gestire il click
-        Debug.Log("Click su TurnEnder");
+        //Debug.Log("Click su TurnEnder");
         TurnManager.Instance.ActivateCardsEffects();
     }
 }

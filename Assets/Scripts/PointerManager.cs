@@ -40,6 +40,7 @@ public class PointerManager : MonoBehaviour
         {
             currentHovered.OnClick();
         }
+
         if (Input.GetMouseButtonUp(0) && currentHovered != null)
         {
             currentHovered.OnExitHover(); // oppure un metodo OnRelease se preferisci
