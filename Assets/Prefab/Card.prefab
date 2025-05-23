@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1296333169516126603}
   - component: {fileID: 7344345896073428477}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3137544801711246625}
   - component: {fileID: 2912102950011945440}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Interactable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 7614823320567214322}
   - component: {fileID: 3598226162657633953}
   - component: {fileID: 7342334984660059456}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}

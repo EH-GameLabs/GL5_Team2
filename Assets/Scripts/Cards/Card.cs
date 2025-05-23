@@ -65,6 +65,8 @@ public class Card : MonoBehaviour, IInteractable
             yield return null;
         }
         transform.position = endPos;
+        GetComponent<Collider>().enabled = true;
     }
 
+    public void SetIntectableObj(bool input) => interactableObj.SetActive(input);
 }
