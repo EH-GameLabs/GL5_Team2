@@ -39,7 +39,8 @@ public class TurnManager : MonoBehaviour
             return;
         }
 
-        _ = currentTurn.ActivationPhase(cardSlot);
+        //_ = currentTurn.ActivationPhase(cardSlot);
+        StartCoroutine(currentTurn.ActivationPhase(cardSlot));
     }
 
     public void ChangeTurn()

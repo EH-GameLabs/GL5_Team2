@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
@@ -35,12 +36,14 @@ public class Turn
             // Il Giocatore pesca 5 carte.
             // Ricarica le 3 Risorse Mentali(RM) all’inizio di ogni turno.
             Debug.Log("Pesca carte e ricarica RM");
+            GameManager.Instance.DrawRandomCards();
             MainPhase();
         }
         else
         {
             // L'Avversario pesca 5 carte.
-            Debug.Log("Pesca carte avversario");
+            Debug.Log("TODO: DA CAMBIARE");
+            EndTurn();
         }
     }
 
@@ -55,23 +58,71 @@ public class Turn
 
     }
 
-    public async Task ActivationPhase(List<GameObject> cardSlot)
+    //public async Task ActivationPhase(List<GameObject> cardSlot)
+    //{
+    //    turnState = TurnState.ActivationPhase;
+    //    // Logica di attivazione di effetti delle carte
+    //    Debug.Log("Attivazione carte: " + turnType);
+
+    //    // Esegui gli effetti delle carte
+    //    foreach (GameObject card in cardSlot)
+    //    {
+    //        // Esegui l'effetto della carta
+    //        Card cardComponent = card.GetComponentInChildren<Card>();
+    //        if (cardComponent != null)
+    //        {
+    //            // Esegui l'effetto della carta
+    //            Debug.Log("Attivazione effetto carta: "/* + cardComponent.cardData.cardName*/);
+    //            // cardComponent.ActivateEffect();
+    //            await Task.Delay(1000);
+    //            GameObject.Destroy(cardComponent.gameObject);
+    //            await Task.Delay(1000);
+    //        }
+    //        else
+    //        {
+    //            Debug.LogWarning("Nessun componente Card trovato su: " + card.name);
+    //        }
+    //    }
+
+    //    //await Task.Delay(2000);
+    //    Debug.Log("-> End Turn!");
+    //    EndTurn();
+    //}
+
+    public IEnumerator ActivationPhase(List<GameObject> cardSlot)
     {
         turnState = TurnState.ActivationPhase;
-        // Logica di attivazione di effetti delle carte
         Debug.Log("Attivazione carte: " + turnType);
 
-        // Esegui gli effetti delle carte
         foreach (GameObject card in cardSlot)
         {
-            // Esegui l'effetto della carta
             Card cardComponent = card.GetComponentInChildren<Card>();
             if (cardComponent != null)
             {
-                // Esegui l'effetto della carta
+
+                float t = 0;
+                Vector3 startPos = cardComponent.transform.position;
+                while (t < 1)
+                {
+                    t += Time.deltaTime * 4;
+                    cardComponent.transform.position = Vector3.Lerp(startPos, startPos + new Vector3(0, 0.5f, 0), t);
+                    yield return null;
+                }
+
                 Debug.Log("Attivazione effetto carta: "/* + cardComponent.cardData.cardName*/);
                 // cardComponent.ActivateEffect();
-                await Task.Delay(2000);
+
+                yield return new WaitForSeconds(1f);
+
+                t = 0;
+                startPos = cardComponent.transform.position;
+                while (t < 1)
+                {
+                    t += Time.deltaTime * 4;
+                    cardComponent.transform.position = Vector3.Lerp(startPos, Vector3.zero, t);
+                    yield return null;
+                }
+
                 GameObject.Destroy(cardComponent.gameObject);
             }
             else
@@ -80,10 +131,10 @@ public class Turn
             }
         }
 
-        //await Task.Delay(2000);
         Debug.Log("-> End Turn!");
         EndTurn();
     }
+
 
 
     public void EndTurn()
@@ -92,6 +143,8 @@ public class Turn
 
         // Logica per terminare il turno
         Debug.Log("Fine turno: " + turnType);
+        GameManager.Instance.DiscardHand();
+        DeckManager.Instance.InitializeDeck();
 
         // Passa il turno
         TurnManager.Instance.ChangeTurn();

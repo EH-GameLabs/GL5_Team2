@@ -15,9 +15,10 @@ public class Card : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        startPos = transform.position;
         interactableObj.SetActive(false);
     }
+
+    public void SetStartPos(Vector3 pos) => startPos = pos;
 
     public void OnClick()
     {
