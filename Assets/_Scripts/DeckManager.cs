@@ -15,10 +15,6 @@ public class DeckManager : MonoBehaviour
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         Instance = this;
-    }
-
-    private void Start()
-    {
         InitializeDeck();
     }
 

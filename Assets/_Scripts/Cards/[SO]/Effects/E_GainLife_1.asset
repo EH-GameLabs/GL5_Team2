@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d18fb2cde0866e2479780aab8b084028, type: 3}
-  m_Name: Card 1
+  m_Script: {fileID: 11500000, guid: 86eadc5ea768daf4cbd9b3dbffa4e075, type: 3}
+  m_Name: E_GainLife_1
   m_EditorClassIdentifier: 
-  cardName: '#01'
-  cardType: 2
-  RMCost: 2
-  effects:
-  - {fileID: 11400000, guid: a11c51791294e8747b1d524ce006d680, type: 2}
-  - {fileID: 11400000, guid: 5e5e30a2ba6b60e4db641c2a37903401, type: 2}
+  effectName: 
+  lifeAmount: 1

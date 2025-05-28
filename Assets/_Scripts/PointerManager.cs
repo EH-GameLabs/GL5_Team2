@@ -48,9 +48,6 @@ public class PointerManager : MonoBehaviour
             currentHovered = null;
             dragging = false;
 
-            Debug.Log("hit: " + hit.transform.name);
-            Debug.Log("Hit has CARD: " + hit.transform.GetComponentInChildren<Card>() == null);
-
             if (hitting && hit.collider.CompareTag("Slot") && hit.transform.GetComponentInChildren<Card>() == null)
             {
                 card.position = hit.transform.position;

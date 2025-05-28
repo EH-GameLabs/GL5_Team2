@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9240315827c5244e8d0a56655f511ee, type: 3}
-  m_Name: E_3_DoDamage
+  m_Script: {fileID: 11500000, guid: c3ba57d958fc5c948aaa0fdf576ce95a, type: 3}
+  m_Name: E_Foreach_Do_2
   m_EditorClassIdentifier: 
-  effectName: Sborra acida
-  damageAmount: 3
+  effectName: 
+  cardTypeToCheck: 0
+  effectToActivate: {fileID: 11400000, guid: 81bf0aea01385aa4f8faeba8e8cf8ecb, type: 2}

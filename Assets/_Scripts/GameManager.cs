@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         float t = 0;
         while (t < 1)
         {
-            t += Time.deltaTime * 2;
+            t += Time.deltaTime * 1;
             card.transform.position = Vector3.Lerp(card.transform.position, position.position, t);
             card.transform.rotation = Quaternion.Lerp(card.transform.rotation, position.rotation, t);
             yield return null;

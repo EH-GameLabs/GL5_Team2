@@ -18,6 +18,8 @@ public class Turn
     public TurnState turnState;
     public TurnType turnType;
 
+    public bool collectorCanActivateEffect = true;
+
     public Turn(TurnType turnType)
     {
         turnState = TurnState.Begin;
@@ -110,7 +112,18 @@ public class Turn
                 }
 
                 Debug.Log("Attivazione effetto carta: "/* + cardComponent.cardData.cardName*/);
-                // cardComponent.ActivateEffect();
+                //foreach (SO_Effect effect in cardComponent.cardData.effects)
+                //{
+                //    effect.Effect();
+                //}
+
+                //if (collectorCanActivateEffect /*&& ha senso attivarla*/)
+                //{
+                //    Collector.Instance.ActivateMaskEffect();
+                //}
+
+                //collectorCanActivateEffect = true;
+
 
                 yield return new WaitForSeconds(1f);
 
@@ -141,10 +154,17 @@ public class Turn
     {
         turnState = TurnState.End;
 
-        // Logica per terminare il turno
-        Debug.Log("Fine turno: " + turnType);
-        GameManager.Instance.DiscardHand();
-        DeckManager.Instance.InitializeDeck();
+        if (turnType == TurnType.Player)
+        {
+            Debug.Log("Il Giocatore termina il turno.");
+            GameManager.Instance.DiscardHand();
+            DeckManager.Instance.InitializeDeck();
+        }
+        else
+        {
+            Debug.Log("L'Avversario termina il turno.");
+        }
+
 
         // Passa il turno
         TurnManager.Instance.ChangeTurn();
