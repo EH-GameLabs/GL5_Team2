@@ -10,14 +10,11 @@ public class PointerManager : MonoBehaviour
     private IInteractable currentHovered = null;
     bool dragging = false;
     Vector3 rayHitPosition = Vector3.zero;
-    Vector3 originPosition = Vector3.zero;
     Vector3 originRotation = Vector3.zero;
     Transform card;
     public Vector3 offset;
     bool hitting = false;
     public LayerMask layerMask;
-
-    private bool wasPlaced = false;
 
     private void Awake()
     {
@@ -53,7 +50,8 @@ public class PointerManager : MonoBehaviour
             {
                 card.position = hit.transform.position;
                 card.transform.SetParent(hit.transform);
-                if (!wasPlaced)
+                card.GetComponent<Card>().SetStartPos(card.position);
+                if (!card.GetComponent<Card>().isPlaced)
                 {
                     GameManager.Instance.CurrentRM -= card.GetComponent<Card>().cardData.RMCost;
                     card.GetComponent<Card>().isPlaced = true;
@@ -64,8 +62,8 @@ public class PointerManager : MonoBehaviour
             {
                 //card.SetPositionAndRotation(originPosition, Quaternion.Euler(originRotation));
                 card.rotation = Quaternion.Euler(originRotation);
-                card?.GetComponent<Card>().OnExitHover();
-                card?.GetComponent<Card>().SetIntectableObj(false); // Riattivo l'hover della carta
+                card.GetComponent<Card>().GetBack();
+                card.GetComponent<Card>().SetIntectableObj(false); // Riattivo l'hover della carta
             }
         }
     }
@@ -106,18 +104,6 @@ public class PointerManager : MonoBehaviour
             if (cardComponent.cardData.RMCost > GameManager.Instance.CurrentRM && !cardComponent.isPlaced) return;
             if (!cardComponent.isDraggable) return;
 
-            if (cardComponent.isPlaced)
-            {
-                wasPlaced = true;
-            }
-            else
-            {
-                wasPlaced = false;
-            }
-
-            cardComponent.isPlaced = false;
-
-            originPosition = card.position;
             originRotation = card.rotation.eulerAngles; // Salvo la rotazione originale
             dragging = true; // Inizio a trascinare
             card.GetComponent<Collider>().enabled = false; // Disabilito il collider della carta mentre la trascino

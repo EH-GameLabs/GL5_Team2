@@ -1306,7 +1306,6 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  quandoCeraLui: 0
 --- !u!4 &1036104025
 Transform:
   m_ObjectHideFlags: 0
@@ -1520,14 +1519,30 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6408637035522853160, guid: 8069cbe93a94ea249b73f00d43ae3fd2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3b346904bc8669d49845f25624af9688, type: 2}
     - target: {fileID: -83665950244040663, guid: 8069cbe93a94ea249b73f00d43ae3fd2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6eeeba268dae7214e82d60a241d1648d, type: 2}
+      objectReference: {fileID: 2100000, guid: a71d552b63c33b34c85a7a6afabd329a, type: 2}
+    - target: {fileID: 195872269678891297, guid: 8069cbe93a94ea249b73f00d43ae3fd2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b91d160d989e5d249bbcced64212cfd6, type: 2}
     - target: {fileID: 919132149155446097, guid: 8069cbe93a94ea249b73f00d43ae3fd2, type: 3}
       propertyPath: m_Name
       value: tavolo fbx
       objectReference: {fileID: 0}
+    - target: {fileID: 3951510762550550103, guid: 8069cbe93a94ea249b73f00d43ae3fd2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b91d160d989e5d249bbcced64212cfd6, type: 2}
+    - target: {fileID: 5269437539178920046, guid: 8069cbe93a94ea249b73f00d43ae3fd2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b91d160d989e5d249bbcced64212cfd6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1846,7 +1861,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b956751b4af778b4e892c3c9fc9e4241, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

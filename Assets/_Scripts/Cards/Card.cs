@@ -63,7 +63,7 @@ public class Card : MonoBehaviour, IInteractable
     private IEnumerator MoveDownRoutine()
     {
         float t = 0;
-
+        
         Vector3 startPos = transform.position;
         Vector3 endPos = this.startPos;
         while (t < 1)
@@ -77,4 +77,5 @@ public class Card : MonoBehaviour, IInteractable
     }
 
     public void SetIntectableObj(bool input) => interactableObj.SetActive(input);
+    public void GetBack() => StartCoroutine(MoveDownRoutine());
 }
