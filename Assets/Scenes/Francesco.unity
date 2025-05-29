@@ -280,6 +280,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1633189936460514887, guid: 495d695afdf441249b368236407e4028, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1671321541599350347, guid: 495d695afdf441249b368236407e4028, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -363,6 +367,30 @@ PrefabInstance:
     - target: {fileID: 4865951546754878552, guid: 495d695afdf441249b368236407e4028, type: 3}
       propertyPath: m_Name
       value: _UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240821200372715140, guid: 495d695afdf441249b368236407e4028, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5689172222875608345, guid: 495d695afdf441249b368236407e4028, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5689172222875608345, guid: 495d695afdf441249b368236407e4028, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6110943499860217426, guid: 495d695afdf441249b368236407e4028, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7093351406256120162, guid: 495d695afdf441249b368236407e4028, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7093351406256120162, guid: 495d695afdf441249b368236407e4028, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8076756992658160082, guid: 495d695afdf441249b368236407e4028, type: 3}
       propertyPath: startingGameUI
@@ -659,9 +687,7 @@ Transform:
   m_Children:
   - {fileID: 564884963}
   - {fileID: 330848021}
-  - {fileID: 789539941}
   - {fileID: 328399257}
-  - {fileID: 1516607817}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
@@ -831,7 +857,7 @@ GameObject:
   m_Component:
   - component: {fileID: 727333383}
   m_Layer: 0
-  m_Name: _Slots
+  m_Name: _Hands Slots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1003,13 +1029,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 789539940}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 742391471}
-  m_Father: {fileID: 360086784}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &789539942
 MonoBehaviour:
@@ -1477,7 +1503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8069cbe93a94ea249b73f00d43ae3fd2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.27
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8069cbe93a94ea249b73f00d43ae3fd2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1741,7 +1767,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516607816}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1750,7 +1776,7 @@ Transform:
   - {fileID: 1061877437}
   - {fileID: 143938069}
   - {fileID: 1063953368}
-  m_Father: {fileID: 360086784}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1607824720
 GameObject:
@@ -1966,7 +1992,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6311d1e76e63c4b878f4f2ebcf92dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyMaxLife: 25
   enemyLife: 25
+  playerMaxLife: 5
   playerLife: 5
   maxPlayerRM: 3
   maxCardsInHand: 5
@@ -2143,8 +2171,10 @@ SceneRoots:
   - {fileID: 1007408855}
   - {fileID: 1036104025}
   - {fileID: 770343253}
+  - {fileID: 789539941}
   - {fileID: 1922100339}
   - {fileID: 2038971512}
   - {fileID: 243058417}
-  - {fileID: 360086784}
+  - {fileID: 1516607817}
   - {fileID: 727333383}
+  - {fileID: 360086784}

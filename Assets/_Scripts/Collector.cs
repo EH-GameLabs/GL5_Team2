@@ -9,6 +9,18 @@ public class Collector : MonoBehaviour
 
     [SerializeField] private List<CollectorMask> masks = new List<CollectorMask>();
     [SerializeField] private CollectorMask currentMask;
+    public CollectorMask CurrentMask
+    {
+        get => currentMask;
+        set
+        {
+            if (value != null)
+            {
+                currentMask = value;
+                FindAnyObjectByType<HudUI>(FindObjectsInactive.Include).UpdateMaskText(currentMask.name);
+            }
+        }
+    }
 
 
     private void Awake()
@@ -19,19 +31,19 @@ public class Collector : MonoBehaviour
 
     public void ActivateMaskEffect(Card card)
     {
-        if (currentMask is CM_Accusatore && card.cardData.cardType == CardTypes.Doloroso)
+        if (CurrentMask is CM_Accusatore && card.cardData.cardType == CardTypes.Doloroso)
         {
-            currentMask.ActivateMaskEffect();
+            CurrentMask.ActivateMaskEffect();
         }
 
-        if (currentMask is CM_Tentatore && HasDrawEffect(card))
+        if (CurrentMask is CM_Tentatore && HasDrawEffect(card))
         {
-            currentMask.ActivateMaskEffect();
+            CurrentMask.ActivateMaskEffect();
         }
 
-        if (currentMask is CM_Martire && HasHealEffect(card))
+        if (CurrentMask is CM_Martire && HasHealEffect(card))
         {
-            currentMask.ActivateMaskEffect();
+            CurrentMask.ActivateMaskEffect();
         }
     }
 
@@ -61,13 +73,13 @@ public class Collector : MonoBehaviour
 
     public void SetMask()
     {
-        currentMask = masks[0];
+        CurrentMask = masks[0];
 
         foreach (CollectorMask mask in masks)
         {
             if (mask.currentCardActivated > currentMask.currentCardActivated)
             {
-                currentMask = mask;
+                CurrentMask = mask;
             }
         }
     }

@@ -117,6 +117,13 @@ public class Turn
                 foreach (SO_Effect effect in cardComponent.cardData.effects)
                 {
                     effect.Effect();
+                    if (cardComponent.cardData.cardType == CardTypes.Doloroso && effect is E_DoDamage)
+                    {
+                        CM_Accusatore accusatore = GameObject.FindAnyObjectByType<CM_Accusatore>();
+                        E_DoDamage e_DoDamage = effect as E_DoDamage;
+                        accusatore.damageAmount = e_DoDamage.damageAmount;
+                        accusatore.AddCardActivated();
+                    }
                 }
 
                 if (collectorCanActivateEffect /*&& ha senso attivarla*/)

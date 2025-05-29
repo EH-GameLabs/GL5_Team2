@@ -8,11 +8,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [Header("Enemy Stats")]
+    [SerializeField] private int enemyMaxLife;
     [SerializeField] private int enemyLife;
-    public int EnemyLife { get { return enemyLife; } set { enemyLife = value; } }
+    public int EnemyLife { get { return enemyLife; } set { enemyLife = value; hudUI.UpdateEnemyHealth(enemyLife, enemyMaxLife); } }
     [Header("Player Stats")]
+    [SerializeField] private int playerMaxLife;
     [SerializeField] private int playerLife;
-    public int PlayerLife { get { return playerLife; } set { playerLife = value; } }
+    public int PlayerLife { get { return playerLife; } set { playerLife = value; hudUI.UpdatePlayerHealth(playerLife, playerMaxLife); } }
     [SerializeField] private int maxPlayerRM = 3;
 
     [Header("Hand Settings")]
@@ -43,6 +45,9 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         hudUI = FindAnyObjectByType<HudUI>(FindObjectsInactive.Include);
+
+        EnemyLife = enemyMaxLife;
+        PlayerLife = playerMaxLife;
     }
 
     public void DrawCard(CardTypes value, int key)
