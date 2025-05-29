@@ -17,6 +17,8 @@ public class PointerManager : MonoBehaviour
     bool hitting = false;
     public LayerMask layerMask;
 
+    private bool wasPlaced = false;
+
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
@@ -27,7 +29,6 @@ public class PointerManager : MonoBehaviour
     {
         // 1) Provo il raycast dal mouse
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
 
         if (!dragging)
         {
@@ -52,6 +53,12 @@ public class PointerManager : MonoBehaviour
             {
                 card.position = hit.transform.position;
                 card.transform.SetParent(hit.transform);
+                if (!wasPlaced)
+                {
+                    GameManager.Instance.CurrentRM -= card.GetComponent<Card>().cardData.RMCost;
+                    card.GetComponent<Card>().isPlaced = true;
+                }
+                card.GetComponent<Collider>().enabled = true;
             }
             else
             {
@@ -62,6 +69,8 @@ public class PointerManager : MonoBehaviour
             }
         }
     }
+
+
 
     private void Hover(Ray ray)
     {
@@ -91,6 +100,23 @@ public class PointerManager : MonoBehaviour
             if (currentHovered is not Card) return;
 
             card = ((MonoBehaviour)currentHovered).transform;
+
+            Card cardComponent = card.GetComponent<Card>();
+
+            if (cardComponent.cardData.RMCost > GameManager.Instance.CurrentRM && !cardComponent.isPlaced) return;
+            if (!cardComponent.isDraggable) return;
+
+            if (cardComponent.isPlaced)
+            {
+                wasPlaced = true;
+            }
+            else
+            {
+                wasPlaced = false;
+            }
+
+            cardComponent.isPlaced = false;
+
             originPosition = card.position;
             originRotation = card.rotation.eulerAngles; // Salvo la rotazione originale
             dragging = true; // Inizio a trascinare

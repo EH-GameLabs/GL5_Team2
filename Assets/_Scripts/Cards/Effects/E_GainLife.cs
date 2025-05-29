@@ -7,5 +7,6 @@ public class E_GainLife : SO_Effect
     public override void Effect()
     {
         GameManager.Instance.PlayerLife += lifeAmount;
+        FindAnyObjectByType<CM_Martire>().lifeAmount = lifeAmount;
     }
 }

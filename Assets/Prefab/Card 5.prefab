@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945c2ef98d087b348bd6064fb73aae7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
+  cardData: {fileID: 11400000, guid: f5d061a163979e44398c36fc2a5dbfe9, type: 2}
   interactableObj: {fileID: 4294152257365242746}
 --- !u!65 &7342334984660059456
 BoxCollider:

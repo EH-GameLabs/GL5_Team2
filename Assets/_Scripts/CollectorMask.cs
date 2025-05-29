@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
 
-public class CollectorMask : MonoBehaviour
+public abstract class CollectorMask : MonoBehaviour
 {
-    public void ActivateMaskEffect()
-    {
+    public int currentCardActivated = 0;
 
-    }
+    public void AddCardActivated() { currentCardActivated += 1; }
+
+    public abstract void ActivateMaskEffect();
 }

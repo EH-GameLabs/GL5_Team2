@@ -31,20 +31,22 @@ public class Turn
         turnState = TurnState.Begin;
 
         // Logica per iniziare il turno
-        Debug.Log("Inizio turno: " + turnType);
+        //Debug.Log("Inizio turno: " + turnType);
 
         if (turnType == TurnType.Player)
         {
             // Il Giocatore pesca 5 carte.
             // Ricarica le 3 Risorse Mentali(RM) all’inizio di ogni turno.
-            Debug.Log("Pesca carte e ricarica RM");
+
             GameManager.Instance.DrawRandomCards();
+            GameManager.Instance.ResetRM();
+
             MainPhase();
         }
         else
         {
-            // L'Avversario pesca 5 carte.
-            Debug.Log("TODO: DA CAMBIARE");
+            Collector.Instance.SetMask();
+
             EndTurn();
         }
     }
@@ -52,7 +54,7 @@ public class Turn
     public void MainPhase()
     {
         turnState = TurnState.MainPahse;
-        Debug.Log("MainPhase: " + turnType);
+        //Debug.Log("MainPhase: " + turnType);
 
         // Il Giocatore può giocare massimo 4 carte della sua mano.
         // Può mettere le carte nell’ordine che preferisce.
@@ -112,17 +114,17 @@ public class Turn
                 }
 
                 Debug.Log("Attivazione effetto carta: "/* + cardComponent.cardData.cardName*/);
-                //foreach (SO_Effect effect in cardComponent.cardData.effects)
-                //{
-                //    effect.Effect();
-                //}
+                foreach (SO_Effect effect in cardComponent.cardData.effects)
+                {
+                    effect.Effect();
+                }
 
-                //if (collectorCanActivateEffect /*&& ha senso attivarla*/)
-                //{
-                //    Collector.Instance.ActivateMaskEffect();
-                //}
+                if (collectorCanActivateEffect /*&& ha senso attivarla*/)
+                {
+                    Collector.Instance.ActivateMaskEffect(cardComponent);
+                }
 
-                //collectorCanActivateEffect = true;
+                collectorCanActivateEffect = true;
 
 
                 yield return new WaitForSeconds(1f);
@@ -136,6 +138,7 @@ public class Turn
                     yield return null;
                 }
 
+                DeckManager.Instance.AddCard(cardComponent);
                 GameObject.Destroy(cardComponent.gameObject);
             }
             else
@@ -143,6 +146,8 @@ public class Turn
                 Debug.LogWarning("Nessun componente Card trovato su: " + card.name);
             }
         }
+
+        DeckManager.Instance.ShuffleDeck();
 
         Debug.Log("-> End Turn!");
         EndTurn();
@@ -157,8 +162,8 @@ public class Turn
         if (turnType == TurnType.Player)
         {
             Debug.Log("Il Giocatore termina il turno.");
-            GameManager.Instance.DiscardHand();
-            DeckManager.Instance.InitializeDeck();
+            //GameManager.Instance.DiscardHand();
+            //DeckManager.Instance.InitializeDeck();
         }
         else
         {

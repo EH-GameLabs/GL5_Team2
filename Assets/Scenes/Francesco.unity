@@ -366,7 +366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8076756992658160082, guid: 495d695afdf441249b368236407e4028, type: 3}
       propertyPath: startingGameUI
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -659,7 +659,7 @@ Transform:
   m_Children:
   - {fileID: 564884963}
   - {fileID: 330848021}
-  - {fileID: 742391471}
+  - {fileID: 789539941}
   - {fileID: 328399257}
   - {fileID: 1516607817}
   m_Father: {fileID: 0}
@@ -883,13 +883,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742391470}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -2, z: 9.75}
   m_LocalScale: {x: 8, y: 8, z: 8}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 176749189}
-  m_Father: {fileID: 360086784}
+  m_Father: {fileID: 789539941}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &742391473
 MeshRenderer:
@@ -975,6 +975,101 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &789539940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 789539941}
+  - component: {fileID: 789539945}
+  - component: {fileID: 789539944}
+  - component: {fileID: 789539943}
+  - component: {fileID: 789539942}
+  m_Layer: 0
+  m_Name: Enemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &789539941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789539940}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 742391471}
+  m_Father: {fileID: 360086784}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &789539942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789539940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bbd7ae78fcb49c4cb5a01d478572174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCardActivated: 0
+  lifeAmount: 1
+--- !u!114 &789539943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789539940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f17123bab819ae4a9d95517d3f38af5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCardActivated: 0
+  cardAmount: 1
+--- !u!114 &789539944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789539940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21052c2edede3644917dd0ff7f7473d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCardActivated: 0
+  damageAmount: 1
+--- !u!114 &789539945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789539940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ef06fc70f353f4fa7f2841d997b6de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masks:
+  - {fileID: 789539944}
+  - {fileID: 789539943}
+  - {fileID: 789539942}
+  currentMask: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,6 +1306,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+  quandoCeraLui: 0
 --- !u!4 &1036104025
 Transform:
   m_ObjectHideFlags: 0
@@ -1855,8 +1951,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6311d1e76e63c4b878f4f2ebcf92dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyLife: 100
-  playerLife: 100
+  enemyLife: 25
+  playerLife: 5
+  maxPlayerRM: 3
   maxCardsInHand: 5
   handPositions:
   - {fileID: 859196920}
@@ -1867,6 +1964,7 @@ MonoBehaviour:
   isGameActive: 0
   currentTurn: 0
   cardsInHand: 0
+  currentRM: 0
 --- !u!1 &1969910628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,6 +2001,7 @@ MonoBehaviour:
   - {fileID: 3598226162657633953, guid: 7f2c818abbbb2a345a34d3299a6a22f2, type: 3}
   - {fileID: 3598226162657633953, guid: cb50fd3f8b6972f4899a273ff8a55f49, type: 3}
   - {fileID: 3598226162657633953, guid: 181499e0331e24a4a8511dd64ec3bbe5, type: 3}
+  currentDeck: []
 --- !u!4 &1969910630
 Transform:
   m_ObjectHideFlags: 0

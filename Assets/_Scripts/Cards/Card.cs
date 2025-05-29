@@ -10,6 +10,8 @@ public class Card : MonoBehaviour, IInteractable
 
     [Header("Interactable")]
     [SerializeField] private GameObject interactableObj;
+    public bool isDraggable = true;
+    public bool isPlaced = false;
 
     private Vector3 startPos;
 
@@ -22,19 +24,24 @@ public class Card : MonoBehaviour, IInteractable
 
     public void OnClick()
     {
-        Debug.Log("Click on Card: ");
         // visualizza la carta
     }
 
     public void OnExitHover()
     {
+        if (!isDraggable) return;
         interactableObj.SetActive(false);
+
+        if (isPlaced) return;
         StartCoroutine(MoveDownRoutine());
     }
 
     public void OnHover()
     {
+        if (!isDraggable) return;
         interactableObj.SetActive(true);
+
+        if (isPlaced) return;
         StartCoroutine(MoveUpRoutine());
     }
 

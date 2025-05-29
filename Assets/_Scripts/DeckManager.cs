@@ -9,7 +9,8 @@ public class DeckManager : MonoBehaviour
     [Header("Deck Settings")]
     [SerializeField] private List<Card> deck = new();
 
-    private List<Card> initialDeck = new();
+    [Header("Current Deck")]
+    [SerializeField] private List<Card> currentDeck = new();
 
     private void Awake()
     {
@@ -18,39 +19,59 @@ public class DeckManager : MonoBehaviour
         InitializeDeck();
     }
 
-    private void ShuffleDeck()
+    public void ShuffleDeck()
     {
-        for (int i = 0; i < initialDeck.Count; i++)
+        for (int i = 0; i < currentDeck.Count; i++)
         {
-            int randomIndex = Random.Range(i, initialDeck.Count);
-            (initialDeck[i], initialDeck[randomIndex]) = (initialDeck[randomIndex], initialDeck[i]);
+            int randomIndex = Random.Range(i, currentDeck.Count);
+            (currentDeck[i], currentDeck[randomIndex]) = (currentDeck[randomIndex], currentDeck[i]);
         }
     }
 
     public void InitializeDeck()
     {
-        initialDeck.Clear();
+        currentDeck.Clear();
         foreach (Card card in deck)
         {
-            initialDeck.Add(card);
+            currentDeck.Add(card);
         }
         ShuffleDeck();
+    }
+
+    public void AddCard(Card card)
+    {
+        Card c = null;
+
+        for (int i = 0; i < deck.Count; i++)
+        {
+            if (deck[i].cardData.cardName == card.cardData.cardName)
+            {
+                c = deck[i];
+                break;
+            }
+        }
+
+        if (c != null && !currentDeck.Contains(c))
+        {
+            Debug.Log($"Added: {c}");
+            currentDeck.Add(c);
+        }
     }
 
 
     public Card DrawCard()
     {
-        Card card = initialDeck[^1];
-        initialDeck.RemoveAt(initialDeck.Count - 1);
+        Card card = currentDeck[^1];
+        currentDeck.RemoveAt(currentDeck.Count - 1);
         return card;
     }
 
     public Card DrawCard(CardTypes cardType)
     {
-        Card card = initialDeck.Find(c => c.cardData.cardType == cardType);
+        Card card = currentDeck.Find(c => c.cardData.cardType == cardType);
         if (card != null)
         {
-            initialDeck.Remove(card);
+            currentDeck.Remove(card);
         }
         return card;
     }

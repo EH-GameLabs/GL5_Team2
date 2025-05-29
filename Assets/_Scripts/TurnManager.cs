@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class TurnManager : MonoBehaviour
     public TurnType turnType;
     public Turn currentTurn;
     public List<GameObject> cardSlot = new List<GameObject>();
+
+    private CollectorMask collectorMask;
 
     private void Awake()
     {
@@ -48,6 +51,7 @@ public class TurnManager : MonoBehaviour
         if (currentTurn.turnType == TurnType.Player)
         {
             currentTurn = new Turn(TurnType.Enemy);
+            collectorMask = null;
         }
         else
         {
@@ -61,6 +65,11 @@ public class TurnManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         currentTurn.BeginTurn();
+    }
+
+    internal void SetNextMask(CollectorMask collectorMask)
+    {
+        this.collectorMask = collectorMask;
     }
 }
 

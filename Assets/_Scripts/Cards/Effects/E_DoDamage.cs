@@ -7,5 +7,6 @@ public class E_DoDamage : SO_Effect
     public override void Effect()
     {
         GameManager.Instance.EnemyLife -= damageAmount;
+        FindAnyObjectByType<CM_Accusatore>().damageAmount = damageAmount;
     }
 }
