@@ -7,7 +7,7 @@ public class E_GainLife : SO_Effect
     public override void Effect()
     {
         GameManager.Instance.PlayerLife += lifeAmount;
-
+        TurnManager.Instance.SetHealed();
         CM_Martire martire = FindAnyObjectByType<CM_Martire>();
         martire.lifeAmount = lifeAmount;
         martire.AddCardActivated();

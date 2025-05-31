@@ -10,11 +10,11 @@ public class GameManager : MonoBehaviour
     [Header("Enemy Stats")]
     [SerializeField] private int enemyMaxLife;
     [SerializeField] private int enemyLife;
-    public int EnemyLife { get { return enemyLife; } set { enemyLife = value; hudUI.UpdateEnemyHealth(enemyLife, enemyMaxLife); } }
+    public int EnemyLife { get { return enemyLife; } set { enemyLife = value > enemyLife ? enemyLife : value; hudUI.UpdateEnemyHealth(enemyLife, enemyMaxLife); } }
     [Header("Player Stats")]
     [SerializeField] private int playerMaxLife;
     [SerializeField] private int playerLife;
-    public int PlayerLife { get { return playerLife; } set { playerLife = value; hudUI.UpdatePlayerHealth(playerLife, playerMaxLife); } }
+    public int PlayerLife { get { return playerLife; } set { playerLife = value > playerLife ? playerLife : value; hudUI.UpdatePlayerHealth(playerLife, playerMaxLife); } }
     [SerializeField] private int maxPlayerRM = 3;
 
     [Header("Hand Settings")]
@@ -132,5 +132,22 @@ public class GameManager : MonoBehaviour
         card.transform.position = Vector3.zero;
 
         Destroy(card);
+    }
+
+    public bool CanPlayCard(Card card)
+    {
+        if (card == null) return false;
+        if (CurrentRM < card.cardData.RMCost + TurnManager.Instance.RMAlteration) return false;
+        return true;
+    }
+
+    public int GetNCards()
+    {
+        int count = 0;
+        foreach (var card in handPositions) 
+        {
+            if (card.GetComponentInChildren<Card>() != null) count++;
+        }
+        return count;
     }
 }

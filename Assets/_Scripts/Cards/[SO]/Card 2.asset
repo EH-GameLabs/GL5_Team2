@@ -15,6 +15,7 @@ MonoBehaviour:
   cardName: '#02'
   cardType: 2
   RMCost: 2
+  lifeTime: 1
   effects:
   - {fileID: 11400000, guid: 2d3ca2517485b0444be9d7fd1847c2fc, type: 2}
   - {fileID: 11400000, guid: 4309cd11379ad2043a6a97d4cd1c68c3, type: 2}

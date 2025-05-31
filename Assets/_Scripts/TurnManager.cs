@@ -12,6 +12,8 @@ public class TurnManager : MonoBehaviour
     public Turn currentTurn;
     public List<GameObject> cardSlot = new List<GameObject>();
 
+    public int RMAlteration = 0;
+    public int altereted = 0;
     private CollectorMask collectorMask;
 
     private void Awake()
@@ -55,7 +57,9 @@ public class TurnManager : MonoBehaviour
         }
         else
         {
+            RMAlteration = -altereted;
             currentTurn = new Turn(TurnType.Player);
+            altereted = 0;
         }
 
         StartCoroutine(WaitToStart());
@@ -70,6 +74,21 @@ public class TurnManager : MonoBehaviour
     internal void SetNextMask(CollectorMask collectorMask)
     {
         this.collectorMask = collectorMask;
+    }
+
+    public void SetHealed()
+    {
+        currentTurn.healed = true;
+    }
+    public void SetHealCheck(int dmg)
+    {
+        currentTurn.haveToCheckHealed = true;
+        currentTurn.damageOnHealed += dmg;
+    }
+
+    public void SetCardsCheck()
+    {
+        currentTurn.haveToCheckCards = true;
     }
 }
 

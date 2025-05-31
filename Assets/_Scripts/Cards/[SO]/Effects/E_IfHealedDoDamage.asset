@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d18fb2cde0866e2479780aab8b084028, type: 3}
-  m_Name: Card 15
+  m_Script: {fileID: 11500000, guid: 22d39b84f311a83449724f41f9368c52, type: 3}
+  m_Name: E_IfHealedDoDamage
   m_EditorClassIdentifier: 
-  cardName: '#15'
-  cardType: 0
-  RMCost: 2
-  lifeTime: 2
-  effects:
-  - {fileID: 11400000, guid: a11c51791294e8747b1d524ce006d680, type: 2}
+  effectName: 
+  dmg: 2

@@ -1743,6 +1743,8 @@ MonoBehaviour:
   - {fileID: 1061877438}
   - {fileID: 143938070}
   - {fileID: 1063953369}
+  RMAlteration: 0
+  altereted: 0
 --- !u!1 &1516607816
 GameObject:
   m_ObjectHideFlags: 0
@@ -2044,6 +2046,8 @@ MonoBehaviour:
   - {fileID: 3598226162657633953, guid: 7f2c818abbbb2a345a34d3299a6a22f2, type: 3}
   - {fileID: 3598226162657633953, guid: cb50fd3f8b6972f4899a273ff8a55f49, type: 3}
   - {fileID: 3598226162657633953, guid: 181499e0331e24a4a8511dd64ec3bbe5, type: 3}
+  - {fileID: 3598226162657633953, guid: 54a5618e4c686b842bee3149f48aafab, type: 3}
+  - {fileID: 3598226162657633953, guid: d4ff6ecaca403cc41a4a699e06aa768c, type: 3}
   currentDeck: []
 --- !u!4 &1969910630
 Transform:

@@ -19,6 +19,14 @@ public class Turn
     public TurnType turnType;
 
     public bool collectorCanActivateEffect = true;
+    public int RMAlteration = 0; // Risorse Mentali (RM) Alteration
+    public bool healed = false;
+    public bool haveToCheckHealed = false;
+    public int damageOnHealed = 0;
+    public bool haveToCheckCards = false;
+
+    private delegate void CardEffect();
+    CardEffect previousCardEffect;
 
     public Turn(TurnType turnType)
     {
@@ -101,9 +109,11 @@ public class Turn
         foreach (GameObject card in cardSlot)
         {
             Card cardComponent = card.GetComponentInChildren<Card>();
+            
             if (cardComponent != null)
             {
-
+                Debug.Log("Card: " + cardComponent.name);
+                cardComponent.lifetime--;
                 float t = 0;
                 Vector3 startPos = cardComponent.transform.position;
                 while (t < 1)
@@ -116,7 +126,9 @@ public class Turn
                 Debug.Log("Attivazione effetto carta: "/* + cardComponent.cardData.cardName*/);
                 foreach (SO_Effect effect in cardComponent.cardData.effects)
                 {
+                    if (effect is E_Duplicate) { previousCardEffect?.Invoke(); break; }
                     effect.Effect();
+                    previousCardEffect = effect.Effect;
                     if (cardComponent.cardData.cardType == CardTypes.Doloroso && effect is E_DoDamage)
                     {
                         CM_Accusatore accusatore = GameObject.FindAnyObjectByType<CM_Accusatore>();
@@ -141,17 +153,31 @@ public class Turn
                 while (t < 1)
                 {
                     t += Time.deltaTime * 4;
-                    cardComponent.transform.position = Vector3.Lerp(startPos, Vector3.zero, t);
+                    Vector3 endPos = cardComponent.lifetime < 1 ?  Vector3.zero : startPos + new Vector3(0, -0.5f, 0);
+                    cardComponent.transform.position = Vector3.Lerp(startPos, endPos, t);
                     yield return null;
                 }
 
-                DeckManager.Instance.AddCard(cardComponent);
-                GameObject.Destroy(cardComponent.gameObject);
+                if (cardComponent.lifetime < 1)
+                {
+                    DeckManager.Instance.AddCard(cardComponent);
+                    GameObject.Destroy(cardComponent.gameObject);
+                }
             }
             else
             {
                 Debug.LogWarning("Nessun componente Card trovato su: " + card.name);
             }
+        }
+
+        if (haveToCheckHealed && healed)
+        {
+            GameManager.Instance.EnemyLife -= damageOnHealed;
+        }
+
+        if (haveToCheckCards && GameManager.Instance.GetNCards() == 2)
+        {
+            GameManager.Instance.PlayerLife += 1;
         }
 
         DeckManager.Instance.ShuffleDeck();

@@ -15,6 +15,8 @@ public class PointerManager : MonoBehaviour
     public Vector3 offset;
     bool hitting = false;
     public LayerMask layerMask;
+    public bool selecting = false;
+    GameObject selected;
 
     private void Awake()
     {
@@ -53,7 +55,8 @@ public class PointerManager : MonoBehaviour
                 card.GetComponent<Card>().SetStartPos(card.position);
                 if (!card.GetComponent<Card>().isPlaced)
                 {
-                    GameManager.Instance.CurrentRM -= card.GetComponent<Card>().cardData.RMCost;
+                    if (card.GetComponent<Card>().cardData.RMCost != 0)
+                    { GameManager.Instance.CurrentRM -= card.GetComponent<Card>().cardData.RMCost + TurnManager.Instance.RMAlteration; }
                     card.GetComponent<Card>().isPlaced = true;
                 }
                 card.GetComponent<Collider>().enabled = true;
@@ -90,6 +93,23 @@ public class PointerManager : MonoBehaviour
             currentHovered?.OnHover();
         }
 
+        if (selecting)
+        {
+            if (Input.GetMouseButtonDown(0) && currentHovered != null)
+            {
+                selected = hit.transform.gameObject;
+            }
+            if (Input.GetMouseButtonUp(0) && hit.transform.gameObject == selected)
+            {
+                if (hit.transform.GetComponent<Card>() != null && !hit.transform.GetComponent<Card>().isPlaced)
+                {
+                    if (hit.transform.GetComponent<Card>().cardData.cardType == CardTypes.Lucido) { GameManager.Instance.PlayerLife += 1; }
+                    selecting = false;
+                }
+            }
+            return; // Se stiamo selezionando, non facciamo altro
+        }
+
         // 3) Gestione click/selezione separata, senza ricollegarsi all'hover
         if (Input.GetMouseButtonDown(0) && currentHovered != null)
         {
@@ -101,7 +121,7 @@ public class PointerManager : MonoBehaviour
 
             Card cardComponent = card.GetComponent<Card>();
 
-            if (cardComponent.cardData.RMCost > GameManager.Instance.CurrentRM && !cardComponent.isPlaced) return;
+            if (!GameManager.Instance.CanPlayCard(cardComponent) && !cardComponent.isPlaced) return;
             if (!cardComponent.isDraggable) return;
 
             originRotation = card.rotation.eulerAngles; // Salvo la rotazione originale

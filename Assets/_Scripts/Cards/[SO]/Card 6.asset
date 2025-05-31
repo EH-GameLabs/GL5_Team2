@@ -15,4 +15,5 @@ MonoBehaviour:
   cardName: '#06'
   cardType: 3
   RMCost: 0
+  lifeTime: 1
   effects: []

@@ -8,6 +8,7 @@ public class SO_Card : ScriptableObject
     public string cardName;
     public CardTypes cardType;
     public int RMCost;
+    public int lifeTime = 1;
     public List<SO_Effect> effects;
 }
 

@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18fb2cde0866e2479780aab8b084028, type: 3}
   m_Name: Card 13
   m_EditorClassIdentifier: 
-  cardName: 
+  cardName: '#13'
   cardType: 0
-  RMCost: 0
-  effects: []
+  RMCost: 1
+  lifeTime: 1
+  effects:
+  - {fileID: 11400000, guid: 2d3ca2517485b0444be9d7fd1847c2fc, type: 2}
+  - {fileID: 11400000, guid: e42d25cf00523c34ea885012e0869c81, type: 2}

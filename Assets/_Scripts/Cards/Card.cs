@@ -12,12 +12,14 @@ public class Card : MonoBehaviour, IInteractable
     [SerializeField] private GameObject interactableObj;
     public bool isDraggable = true;
     public bool isPlaced = false;
+    public int lifetime = 1;
 
     private Vector3 startPos;
 
     private void Start()
     {
         interactableObj.SetActive(false);
+        lifetime = cardData.lifeTime;
     }
 
     public void SetStartPos(Vector3 pos) => startPos = pos;
