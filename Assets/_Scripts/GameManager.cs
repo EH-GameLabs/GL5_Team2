@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int enemyLife;
     public int EnemyLife { get { return enemyLife; } set { enemyLife = value > enemyLife ? enemyLife : value; hudUI.UpdateEnemyHealth(enemyLife, enemyMaxLife); } }
     [Header("Player Stats")]
-    [SerializeField] private int playerMaxLife;
+    public int playerMaxLife;
     [SerializeField] private int playerLife;
     public int PlayerLife { get { return playerLife; } set { playerLife = value > playerLife ? playerLife : value; hudUI.UpdatePlayerHealth(playerLife, playerMaxLife); } }
     [SerializeField] private int maxPlayerRM = 3;
@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
     public int GetNCards()
     {
         int count = 0;
-        foreach (var card in handPositions) 
+        foreach (var card in handPositions)
         {
             if (card.GetComponentInChildren<Card>() != null) count++;
         }

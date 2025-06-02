@@ -16,7 +16,6 @@ public class Turn
     }
 
     public TurnState turnState;
-    public TurnType turnType;
 
     public bool collectorCanActivateEffect = true;
     public int RMAlteration = 0; // Risorse Mentali (RM) Alteration
@@ -28,10 +27,9 @@ public class Turn
     private delegate void CardEffect();
     CardEffect previousCardEffect;
 
-    public Turn(TurnType turnType)
+    public Turn()
     {
         turnState = TurnState.Begin;
-        this.turnType = turnType;
     }
 
     public void BeginTurn()
@@ -41,22 +39,15 @@ public class Turn
         // Logica per iniziare il turno
         //Debug.Log("Inizio turno: " + turnType);
 
-        if (turnType == TurnType.Player)
-        {
-            // Il Giocatore pesca 5 carte.
-            // Ricarica le 3 Risorse Mentali(RM) all’inizio di ogni turno.
 
-            GameManager.Instance.DrawRandomCards();
-            GameManager.Instance.ResetRM();
+        // Il Giocatore pesca 5 carte.
+        // Ricarica le 3 Risorse Mentali(RM) all’inizio di ogni turno.
 
-            MainPhase();
-        }
-        else
-        {
-            Collector.Instance.SetMask();
+        GameManager.Instance.DrawRandomCards();
+        GameManager.Instance.ResetRM();
+        Collector.Instance.SetMask();
 
-            EndTurn();
-        }
+        MainPhase();
     }
 
     public void MainPhase()
@@ -104,12 +95,11 @@ public class Turn
     public IEnumerator ActivationPhase(List<GameObject> cardSlot)
     {
         turnState = TurnState.ActivationPhase;
-        Debug.Log("Attivazione carte: " + turnType);
 
         foreach (GameObject card in cardSlot)
         {
             Card cardComponent = card.GetComponentInChildren<Card>();
-            
+
             if (cardComponent != null)
             {
                 Debug.Log("Card: " + cardComponent.name);
@@ -134,7 +124,7 @@ public class Turn
                         CM_Accusatore accusatore = GameObject.FindAnyObjectByType<CM_Accusatore>();
                         E_DoDamage e_DoDamage = effect as E_DoDamage;
                         accusatore.damageAmount = e_DoDamage.damageAmount;
-                        accusatore.AddCardActivated();
+                        accusatore.AddCard();
                     }
                 }
 
@@ -153,7 +143,7 @@ public class Turn
                 while (t < 1)
                 {
                     t += Time.deltaTime * 4;
-                    Vector3 endPos = cardComponent.lifetime < 1 ?  Vector3.zero : startPos + new Vector3(0, -0.5f, 0);
+                    Vector3 endPos = cardComponent.lifetime < 1 ? Vector3.zero : startPos + new Vector3(0, -0.5f, 0);
                     cardComponent.transform.position = Vector3.Lerp(startPos, endPos, t);
                     yield return null;
                 }
@@ -192,19 +182,10 @@ public class Turn
     {
         turnState = TurnState.End;
 
-        if (turnType == TurnType.Player)
-        {
-            Debug.Log("Il Giocatore termina il turno.");
-            //GameManager.Instance.DiscardHand();
-            //DeckManager.Instance.InitializeDeck();
-        }
-        else
-        {
-            Debug.Log("L'Avversario termina il turno.");
-        }
+        Debug.Log("Turno Terminato.");
 
 
         // Passa il turno
-        TurnManager.Instance.ChangeTurn();
+        TurnManager.Instance.NextTurn();
     }
 }

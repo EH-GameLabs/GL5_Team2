@@ -29,7 +29,7 @@ public class TurnManager : MonoBehaviour
 
     public void StartGame()
     {
-        currentTurn = new Turn(turnType);
+        currentTurn = new Turn();
 
         // Il giocatore sceglie una Maschera, che determina bonus e malus iniziali.
 
@@ -48,19 +48,13 @@ public class TurnManager : MonoBehaviour
         StartCoroutine(currentTurn.ActivationPhase(cardSlot));
     }
 
-    public void ChangeTurn()
+    public void NextTurn()
     {
-        if (currentTurn.turnType == TurnType.Player)
-        {
-            currentTurn = new Turn(TurnType.Enemy);
-            collectorMask = null;
-        }
-        else
-        {
-            RMAlteration = -altereted;
-            currentTurn = new Turn(TurnType.Player);
-            altereted = 0;
-        }
+
+        currentTurn = new Turn();
+        collectorMask = null;
+        RMAlteration = -altereted;
+        altereted = 0;
 
         StartCoroutine(WaitToStart());
     }

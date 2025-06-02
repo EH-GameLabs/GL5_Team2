@@ -3,9 +3,11 @@ using UnityEngine;
 
 public abstract class CollectorMask : MonoBehaviour
 {
-    public int currentCardActivated = 0;
+    public int currentCardInHand = 0;
 
-    public void AddCardActivated() { currentCardActivated += 1; }
+    public void AddCard() { currentCardInHand += 1; }
+    public void ResetCard() { currentCardInHand = 0; }
+    public int GetCards() { return currentCardInHand; }
 
     public abstract void ActivateMaskEffect();
 }

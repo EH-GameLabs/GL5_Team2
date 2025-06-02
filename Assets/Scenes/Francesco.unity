@@ -1092,9 +1092,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   masks:
+  - {fileID: 789539942}
   - {fileID: 789539944}
   - {fileID: 789539943}
-  - {fileID: 789539942}
   currentMask: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
@@ -1332,6 +1332,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+  selecting: 0
 --- !u!4 &1036104025
 Transform:
   m_ObjectHideFlags: 0
