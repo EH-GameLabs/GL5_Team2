@@ -19,6 +19,8 @@ public class HudUI : BaseUI
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             UIManager.instance.ShowUI(UIManager.GameUI.Pause);
+            Time.timeScale = 0f; // Pause the game
+            SoundManager.Instance.PauseMusic();
         }
     }
 

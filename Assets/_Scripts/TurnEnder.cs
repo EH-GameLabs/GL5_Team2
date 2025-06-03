@@ -29,6 +29,7 @@ public class TurnEnder : MonoBehaviour, IInteractable
     {
         // Logica per gestire il click
         //Debug.Log("Click su TurnEnder");
+        if (!TurnManager.Instance.CanEndTurn()) return;
         TurnManager.Instance.ActivateCardsEffects();
         SoundManager.Instance.PLaySFXSound(SoundManager.Instance.endTurn);
     }

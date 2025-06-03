@@ -14,6 +14,8 @@ public class PauseUI : BaseUI
     public void GoToHud()
     {
         UIManager.instance.ShowUI(UIManager.GameUI.HUD);
+        Time.timeScale = 1f;
+        SoundManager.Instance.ResumeMusic();
     }
 
     public void ExitGame()

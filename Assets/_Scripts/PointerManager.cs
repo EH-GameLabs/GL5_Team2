@@ -26,6 +26,9 @@ public class PointerManager : MonoBehaviour
 
     private void Update()
     {
+        
+        
+        if (UIManager.instance.GetCurrentActiveUI() != UIManager.GameUI.HUD) return; // Se non siamo nell'HUD, non facciamo nulla
         // 1) Provo il raycast dal mouse
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -34,6 +37,7 @@ public class PointerManager : MonoBehaviour
             Hover(ray);
             return;
         }
+        if (TurnManager.Instance.currentTurn.turnState != Turn.TurnState.MainPahse) return;
 
         hitting = Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ~layerMask);
 
@@ -99,17 +103,22 @@ public class PointerManager : MonoBehaviour
             {
                 selected = hit.transform.gameObject;
             }
-            if (Input.GetMouseButtonUp(0) && hit.transform.gameObject == selected)
+            if (Input.GetMouseButtonUp(0) && hit.transform != null && hit.transform.gameObject == selected)
             {
                 if (hit.transform.GetComponent<Card>() != null && !hit.transform.GetComponent<Card>().isPlaced)
                 {
-                    if (hit.transform.GetComponent<Card>().cardData.cardType == CardTypes.Lucido) { GameManager.Instance.PlayerLife += 1; }
+                    if (hit.transform.GetComponent<Card>().cardData.cardType == CardTypes.Lucido) 
+                    {
+                        GameManager.Instance.PlayerLife += 1;
+                    }
+                    StartCoroutine(DeckManager.Instance.DiscardCard(hit.transform.GetComponent<Card>()));
                     selecting = false;
+                    Time.timeScale = 1f;
                 }
             }
             return; // Se stiamo selezionando, non facciamo altro
         }
-
+        if (TurnManager.Instance.currentTurn.turnState != Turn.TurnState.MainPahse) return;
         // 3) Gestione click/selezione separata, senza ricollegarsi all'hover
         if (Input.GetMouseButtonDown(0) && currentHovered != null)
         {

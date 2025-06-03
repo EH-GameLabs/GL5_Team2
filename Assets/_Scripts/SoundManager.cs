@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
@@ -7,6 +8,11 @@ public class SoundManager : MonoBehaviour
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         Instance = this;
+    }
+
+    private void Start()
+    {
+        SetButtonSound();
     }
 
     [Header("SOURCES")]
@@ -20,6 +26,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] public AudioClip shuffle;
     [SerializeField] public AudioClip endTurn;
     [SerializeField] public AudioClip changeMask;
+    [SerializeField] private AudioClip button;
 
     public void SetMusicVolume(float volume)
     {
@@ -39,11 +46,13 @@ public class SoundManager : MonoBehaviour
     public void PauseMusic()
     {
         musicSource.Pause();
+        sfxSource.Pause();
     }
 
     public void ResumeMusic()
     {
         musicSource.UnPause();
+        sfxSource.UnPause();
     }
 
     public void PLaySFXSound(AudioClip clip)
@@ -52,6 +61,15 @@ public class SoundManager : MonoBehaviour
         {
             //sfxSource.Stop();
             sfxSource.PlayOneShot(clip);
+        }
+    }
+
+    private void SetButtonSound()
+    {
+        Button[] buttons = FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (Button btn in buttons)
+        {
+            btn.onClick.AddListener(() => PLaySFXSound(button));
         }
     }
 }

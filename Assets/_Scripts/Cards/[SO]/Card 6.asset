@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: '#06'
   cardType: 3
-  RMCost: 0
+  RMCost: 1
   lifeTime: 1
-  effects: []
+  effects:
+  - {fileID: 11400000, guid: f23e662f312b615469792dd951613eec, type: 2}
