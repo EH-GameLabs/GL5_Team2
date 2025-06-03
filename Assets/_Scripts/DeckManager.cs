@@ -21,6 +21,7 @@ public class DeckManager : MonoBehaviour
 
     public void ShuffleDeck()
     {
+        SoundManager.Instance.PLaySFXSound(SoundManager.Instance.shuffle);
         for (int i = 0; i < currentDeck.Count; i++)
         {
             int randomIndex = Random.Range(i, currentDeck.Count);

@@ -45,6 +45,7 @@ public class Card : MonoBehaviour, IInteractable
 
         if (isPlaced) return;
         StartCoroutine(MoveUpRoutine());
+        SoundManager.Instance.PLaySFXSound(SoundManager.Instance.hoverCard);
     }
 
     private IEnumerator MoveUpRoutine()

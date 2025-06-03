@@ -15,4 +15,18 @@ public class PauseUI : BaseUI
     {
         UIManager.instance.ShowUI(UIManager.GameUI.HUD);
     }
+
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+    public void GoToOptions()
+    {
+        UIManager.instance.ShowUI(UIManager.GameUI.Option);
+    }
 }

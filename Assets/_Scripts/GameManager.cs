@@ -10,11 +10,29 @@ public class GameManager : MonoBehaviour
     [Header("Enemy Stats")]
     [SerializeField] private int enemyMaxLife;
     [SerializeField] private int enemyLife;
-    public int EnemyLife { get { return enemyLife; } set { enemyLife = value > enemyLife ? enemyLife : value; hudUI.UpdateEnemyHealth(enemyLife, enemyMaxLife); } }
+    public int EnemyLife 
+    { 
+        get { return enemyLife; }
+        set 
+        { 
+            if (value < enemyLife) SoundManager.Instance.PLaySFXSound(SoundManager.Instance.broTakeDamage);
+            enemyLife = value > enemyMaxLife ? enemyMaxLife : value;
+            hudUI.UpdateEnemyHealth(enemyLife, enemyMaxLife); 
+        } 
+    }
     [Header("Player Stats")]
     public int playerMaxLife;
     [SerializeField] private int playerLife;
-    public int PlayerLife { get { return playerLife; } set { playerLife = value > playerLife ? playerLife : value; hudUI.UpdatePlayerHealth(playerLife, playerMaxLife); } }
+    public int PlayerLife 
+    { 
+        get { return playerLife; } 
+        set 
+        { 
+            if (value < playerLife) SoundManager.Instance.PLaySFXSound(SoundManager.Instance.playerTakeDamage);
+            playerLife = value > playerMaxLife ? playerMaxLife : value;
+            hudUI.UpdatePlayerHealth(playerLife, playerMaxLife); 
+        } 
+    }
     [SerializeField] private int maxPlayerRM = 3;
 
     [Header("Hand Settings")]
