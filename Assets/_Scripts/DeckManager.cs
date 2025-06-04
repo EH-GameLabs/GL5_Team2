@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -75,5 +76,23 @@ public class DeckManager : MonoBehaviour
             currentDeck.Remove(card);
         }
         return card;
+    }
+
+    public IEnumerator DiscardCard(Card cardComponent)
+    {
+        float t = 0;
+        Vector3 startPos = cardComponent.transform.position;
+        cardComponent.isDraggable = false;
+        cardComponent.GetComponent<Collider>().enabled = false;
+        cardComponent.transform.rotation = Quaternion.Euler(Vector3.zero);
+        while (t < 1)
+        {
+            t += Time.deltaTime;
+            Vector3 endPos = Vector3.zero;
+            cardComponent.transform.position = Vector3.Lerp(startPos, endPos, t);
+            yield return null;
+        }
+        AddCard(cardComponent);
+        Destroy(cardComponent.gameObject);
     }
 }

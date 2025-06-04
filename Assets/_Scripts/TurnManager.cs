@@ -84,6 +84,23 @@ public class TurnManager : MonoBehaviour
     {
         currentTurn.haveToCheckCards = true;
     }
+
+    public bool CanEndTurn()
+    {
+        if (currentTurn.turnState == Turn.TurnState.MainPahse)
+        {
+            // Il Giocatore può terminare il turno solo se ha giocato almeno una carta.
+            foreach (GameObject slot in cardSlot)
+            {
+                Card card = slot.GetComponentInChildren<Card>();
+                if (card != null && card.isPlaced)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
 
 public enum TurnType
