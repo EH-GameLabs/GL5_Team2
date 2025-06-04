@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d4ceb223e117f394db34c634a7c5afc1
+guid: 15ad94cceb05f414a873f3d100a6cb69
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Freccia Evidenziata_0
+      name: Carta 5 Cornice Vuota_0
       rect:
         serializedVersion: 2
-        x: 105
-        y: 103
-        width: 105
-        height: 63
+        x: 121
+        y: 124
+        width: 1261
+        height: 2020
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c8deb418932d6441abd6dcf0d823d0a
-      internalID: 1782732922
+      spriteID: 8d9572fa4e9bcf84ca90bf47bb73190e
+      internalID: 690252411
       vertices: []
       indices: 
       edges: []
@@ -132,7 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Freccia Evidenziata_0: 1782732922
+      Carta 5 Cornice Vuota_0: 690252411
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

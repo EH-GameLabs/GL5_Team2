@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d4ceb223e117f394db34c634a7c5afc1
+guid: 511bbce5f49325a4f969a0864bd716a2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Freccia Evidenziata_0
+      name: Carta 8 Legami Strappati_0
       rect:
         serializedVersion: 2
-        x: 105
-        y: 103
-        width: 105
-        height: 63
+        x: 121
+        y: 124
+        width: 1261
+        height: 2020
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c8deb418932d6441abd6dcf0d823d0a
-      internalID: 1782732922
+      spriteID: 8e50bbe2c06c4934e915e4bb910c2a16
+      internalID: -1404213125
       vertices: []
       indices: 
       edges: []
@@ -132,7 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Freccia Evidenziata_0: 1782732922
+      Carta 8 Legami Strappati_0: -1404213125
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

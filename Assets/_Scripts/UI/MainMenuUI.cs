@@ -11,6 +11,7 @@ public class MainMenuUI : BaseUI
 
     public void GoToOptions()
     {
+        FindAnyObjectByType<OptionUI>(FindObjectsInactive.Include).backPanel = GetUIType();
         UIManager.instance.ShowUI(UIManager.GameUI.Option);
     }
 

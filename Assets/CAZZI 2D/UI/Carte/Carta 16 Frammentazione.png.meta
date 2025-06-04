@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d4ceb223e117f394db34c634a7c5afc1
+guid: 59a322baeafe3ba4e85e6a574ae0e670
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Freccia Evidenziata_0
+      name: Carta 16 Frammentazione_0
       rect:
         serializedVersion: 2
-        x: 105
-        y: 103
-        width: 105
-        height: 63
+        x: 121
+        y: 124
+        width: 1261
+        height: 2020
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c8deb418932d6441abd6dcf0d823d0a
-      internalID: 1782732922
+      spriteID: 257080cb956dda04fbb0a8a012ca0e1e
+      internalID: -425507607
       vertices: []
       indices: 
       edges: []
@@ -132,7 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Freccia Evidenziata_0: 1782732922
+      Carta 16 Frammentazione_0: -425507607
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
