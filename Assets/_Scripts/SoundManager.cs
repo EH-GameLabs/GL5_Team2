@@ -10,11 +10,6 @@ public class SoundManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        SetButtonSound();
-    }
-
     [Header("SOURCES")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
@@ -27,6 +22,15 @@ public class SoundManager : MonoBehaviour
     [SerializeField] public AudioClip endTurn;
     [SerializeField] public AudioClip changeMask;
     [SerializeField] private AudioClip button;
+
+    [Header("MUSICS")]
+    [SerializeField] private AudioClip backgroundMusic;
+
+    private void Start()
+    {
+        musicSource.clip = backgroundMusic;
+        SetButtonSound();
+    }
 
     public void SetMusicVolume(float volume)
     {
@@ -71,5 +75,14 @@ public class SoundManager : MonoBehaviour
         {
             btn.onClick.AddListener(() => PLaySFXSound(button));
         }
+    }
+
+    public float GetMusicVolume()
+    {
+        return musicSource.volume;
+    }
+    public float GetSFXVolume()
+    {
+        return sfxSource.volume;
     }
 }

@@ -10,28 +10,28 @@ public class GameManager : MonoBehaviour
     [Header("Enemy Stats")]
     [SerializeField] private int enemyMaxLife;
     [SerializeField] private int enemyLife;
-    public int EnemyLife 
-    { 
+    public int EnemyLife
+    {
         get { return enemyLife; }
-        set 
-        { 
+        set
+        {
             if (value < enemyLife) SoundManager.Instance.PLaySFXSound(SoundManager.Instance.broTakeDamage);
             enemyLife = value > enemyMaxLife ? enemyMaxLife : value;
-            hudUI.UpdateEnemyHealth(enemyLife, enemyMaxLife); 
-        } 
+            hudUI.UpdateEnemyHealth(enemyLife, enemyMaxLife);
+        }
     }
     [Header("Player Stats")]
     public int playerMaxLife;
     [SerializeField] private int playerLife;
-    public int PlayerLife 
-    { 
-        get { return playerLife; } 
-        set 
-        { 
+    public int PlayerLife
+    {
+        get { return playerLife; }
+        set
+        {
             if (value < playerLife) SoundManager.Instance.PLaySFXSound(SoundManager.Instance.playerTakeDamage);
             playerLife = value > playerMaxLife ? playerMaxLife : value;
-            hudUI.UpdatePlayerHealth(playerLife, playerMaxLife); 
-        } 
+            hudUI.UpdatePlayerHealth(playerLife < 0 ? 0 : playerLife);
+        }
     }
     [SerializeField] private int maxPlayerRM = 3;
 
@@ -51,6 +51,9 @@ public class GameManager : MonoBehaviour
         get { return currentRM; }
         set
         {
+            if (value >= maxPlayerRM) value = maxPlayerRM;
+            if (value < 0) value = 0;
+
             currentRM = value;
             hudUI.UpdateRM(currentRM);
         }
@@ -65,15 +68,31 @@ public class GameManager : MonoBehaviour
         hudUI = FindAnyObjectByType<HudUI>(FindObjectsInactive.Include);
 
         EnemyLife = enemyMaxLife;
-        PlayerLife = playerMaxLife;
+        PlayerLife = playerLife;
     }
 
-    public void DrawCard(CardTypes value, int key)
+    public void DrawCard(CardTypes value, int amount)
     {
         if (cardsInHand >= maxCardsInHand) return;
 
-        // Logic to draw a card based on the CardTypes enum
-        // ...
+        int drawnCards = 0;
+
+        Card currentCard = null;
+
+        for (int i = 0; i < maxCardsInHand; i++)
+        {
+            if (handPositions[i].GetComponentInChildren<Card>() != null)
+            {
+                continue;
+            }
+
+            currentCard = Instantiate(DeckManager.Instance.DrawCard(value), Vector3.zero, Quaternion.identity);
+
+            StartCoroutine(CardAnimation(currentCard.gameObject, i));
+
+            drawnCards++;
+            if (drawnCards >= amount) break;
+        }
     }
 
     public void ResetRM() { CurrentRM = maxPlayerRM; }

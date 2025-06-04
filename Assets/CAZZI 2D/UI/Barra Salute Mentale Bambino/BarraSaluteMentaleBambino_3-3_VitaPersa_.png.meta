@@ -95,12 +95,34 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: BarraSaluteMentaleBambino_3-3_VitaPersa__0
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 2147
+        width: 8748
+        height: 2006
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47b2a9798197ccc4c9c26ba88598e7ed
+      internalID: 62994504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4f130ef0d8ce74447a9026ce4607d751
     internalID: 0
     vertices: []
     indices: 
@@ -109,7 +131,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BarraSaluteMentaleBambino_3-3_VitaPersa__0: 62994504
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

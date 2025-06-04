@@ -6,10 +6,13 @@ public class E_GainLife : SO_Effect
     [SerializeField] private int lifeAmount = 1;
     public override void Effect()
     {
-        GameManager.Instance.PlayerLife += lifeAmount;
-        TurnManager.Instance.SetHealed();
+        if (!(GameManager.Instance.playerMaxLife == GameManager.Instance.PlayerLife))
+        {
+            GameManager.Instance.PlayerLife += lifeAmount;
+            TurnManager.Instance.SetHealed();
+        }
+
         CM_Martire martire = FindAnyObjectByType<CM_Martire>();
         martire.lifeAmount = lifeAmount;
-        martire.AddCard();
     }
 }

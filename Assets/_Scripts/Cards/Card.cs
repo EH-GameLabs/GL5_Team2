@@ -34,8 +34,17 @@ public class Card : MonoBehaviour, IInteractable
         if (!isDraggable) return;
         interactableObj.SetActive(false);
 
-        if (isPlaced) return;
-        StartCoroutine(MoveDownRoutine());
+        if (isPlaced)
+        {
+            HudUI hudUI = FindAnyObjectByType<HudUI>();
+
+            hudUI.cardHover.sprite = null;
+            hudUI.cardHover.gameObject.SetActive(false);
+        }
+        else
+        {
+            StartCoroutine(MoveDownRoutine());
+        }
     }
 
     public void OnHover()
@@ -43,9 +52,18 @@ public class Card : MonoBehaviour, IInteractable
         if (!isDraggable) return;
         interactableObj.SetActive(true);
 
-        if (isPlaced) return;
-        StartCoroutine(MoveUpRoutine());
-        SoundManager.Instance.PLaySFXSound(SoundManager.Instance.hoverCard);
+        if (isPlaced)
+        {
+            HudUI hudUI = FindAnyObjectByType<HudUI>();
+
+            hudUI.cardHover.sprite = GetComponentInChildren<SpriteRenderer>().sprite;
+            hudUI.cardHover.gameObject.SetActive(true);
+        }
+        else
+        {
+            StartCoroutine(MoveUpRoutine());
+            SoundManager.Instance.PLaySFXSound(SoundManager.Instance.hoverCard);
+        }
     }
 
     private IEnumerator MoveUpRoutine()
@@ -66,7 +84,7 @@ public class Card : MonoBehaviour, IInteractable
     private IEnumerator MoveDownRoutine()
     {
         float t = 0;
-        
+
         Vector3 startPos = transform.position;
         Vector3 endPos = this.startPos;
         while (t < 1)

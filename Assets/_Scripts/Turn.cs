@@ -18,14 +18,17 @@ public class Turn
     public TurnState turnState;
 
     public bool collectorCanActivateEffect = true;
-    public int RMAlteration = 0; // Risorse Mentali (RM) Alteration
+    //public int RMAlteration = 0; // Risorse Mentali (RM) Alteration
     public bool healed = false;
     public bool haveToCheckHealed = false;
     public int damageOnHealed = 0;
     public bool haveToCheckCards = false;
+    public int healOnCheckCard = 0;
 
     private delegate void CardEffect();
     CardEffect previousCardEffect;
+
+    private int previousCardLifeTime = 0;
 
     public Turn()
     {
@@ -46,6 +49,12 @@ public class Turn
         GameManager.Instance.DrawRandomCards();
         GameManager.Instance.ResetRM();
         Collector.Instance.SetMask();
+
+        //Debug.Log($"Turno Iniziato. RM Alteration: {RMAlteration}");
+        //if (RMAlteration != 0)
+        //{
+        //    GameObject.FindAnyObjectByType<HudUI>(FindObjectsInactive.Include).ShowRMAlteration(RMAlteration);
+        //}
 
         MainPhase();
     }
@@ -116,9 +125,15 @@ public class Turn
                 Debug.Log("Attivazione effetto carta: "/* + cardComponent.cardData.cardName*/);
                 foreach (SO_Effect effect in cardComponent.cardData.effects)
                 {
-                    if (effect is E_Duplicate) { previousCardEffect?.Invoke(); break; }
+                    if (effect is E_Duplicate)
+                    {
+                        previousCardEffect?.Invoke();
+                        cardComponent.lifetime = previousCardLifeTime;
+                        break;
+                    }
                     effect.Effect();
                     previousCardEffect = effect.Effect;
+                    previousCardLifeTime = cardComponent.lifetime;
                     if (cardComponent.cardData.cardType == CardTypes.Doloroso && effect is E_DoDamage)
                     {
                         CM_Accusatore accusatore = GameObject.FindAnyObjectByType<CM_Accusatore>();
@@ -167,7 +182,7 @@ public class Turn
 
         if (haveToCheckCards && GameManager.Instance.GetNCards() == 2)
         {
-            GameManager.Instance.PlayerLife += 1;
+            GameManager.Instance.PlayerLife += healOnCheckCard;
         }
 
         DeckManager.Instance.ShuffleDeck();
@@ -183,6 +198,7 @@ public class Turn
         turnState = TurnState.End;
 
         Debug.Log("Turno Terminato.");
+        GameObject.FindAnyObjectByType<HudUI>(FindObjectsInactive.Include).HideRMAlteration();
 
 
         // Passa il turno

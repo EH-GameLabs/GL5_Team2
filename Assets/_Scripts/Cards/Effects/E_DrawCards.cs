@@ -16,7 +16,6 @@ public class E_DrawCards : SO_Effect
 
         CM_Tentatore tentatore = FindAnyObjectByType<CM_Tentatore>();
         tentatore.cardAmount = i;
-        tentatore.AddCard();
     }
 }
 

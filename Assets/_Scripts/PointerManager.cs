@@ -17,17 +17,17 @@ public class PointerManager : MonoBehaviour
     public LayerMask layerMask;
     public bool selecting = false;
     GameObject selected;
+    HudUI hudUI;
 
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         Instance = this;
+        hudUI = FindAnyObjectByType<HudUI>(FindObjectsInactive.Include);
     }
 
     private void Update()
     {
-        
-        
         if (UIManager.instance.GetCurrentActiveUI() != UIManager.GameUI.HUD) return; // Se non siamo nell'HUD, non facciamo nulla
         // 1) Provo il raycast dal mouse
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -38,6 +38,10 @@ public class PointerManager : MonoBehaviour
             return;
         }
         if (TurnManager.Instance.currentTurn.turnState != Turn.TurnState.MainPahse) return;
+
+
+
+        hudUI.cardHover.gameObject.SetActive(false);
 
         hitting = Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, ~layerMask);
 
@@ -107,13 +111,14 @@ public class PointerManager : MonoBehaviour
             {
                 if (hit.transform.GetComponent<Card>() != null && !hit.transform.GetComponent<Card>().isPlaced)
                 {
-                    if (hit.transform.GetComponent<Card>().cardData.cardType == CardTypes.Lucido) 
+                    if (hit.transform.GetComponent<Card>().cardData.cardType == CardTypes.Lucido)
                     {
                         GameManager.Instance.PlayerLife += 1;
                     }
                     StartCoroutine(DeckManager.Instance.DiscardCard(hit.transform.GetComponent<Card>()));
                     selecting = false;
                     Time.timeScale = 1f;
+                    hudUI.discardACard.SetActive(false);
                 }
             }
             return; // Se stiamo selezionando, non facciamo altro

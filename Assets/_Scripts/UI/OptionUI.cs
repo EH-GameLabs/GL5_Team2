@@ -11,6 +11,16 @@ public class OptionUI : BaseUI
     [SerializeField] private GameObject glossaryPanelPage1;
     [SerializeField] private GameObject glossaryPanelPage2;
 
+    [Header("Audio Settings Panel")]
+    [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private Slider sfxVolumeSlider;
+
+    private void Start()
+    {
+        musicVolumeSlider.value = SoundManager.Instance.GetMusicVolume();
+        sfxVolumeSlider.value = SoundManager.Instance.GetSFXVolume();
+    }
+
     [Header("Back Panel")]
     public UIManager.GameUI backPanel;
 

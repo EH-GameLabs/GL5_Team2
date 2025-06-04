@@ -22,18 +22,18 @@ public class TurnManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        StartGame();
-    }
-
     public void StartGame()
     {
+        DeckManager.Instance.InitializeDeck();
         currentTurn = new Turn();
 
         // Il giocatore sceglie una Maschera, che determina bonus e malus iniziali.
 
         currentTurn.BeginTurn();
+
+
+        SoundManager.Instance.PlayMusic();
+        Time.timeScale = 1.0f;
     }
 
     public void ActivateCardsEffects()
@@ -50,6 +50,7 @@ public class TurnManager : MonoBehaviour
 
     public void NextTurn()
     {
+        FindAnyObjectByType<HudUI>(FindObjectsInactive.Include).HideRMAlteration();
 
         currentTurn = new Turn();
         collectorMask = null;
@@ -63,6 +64,10 @@ public class TurnManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         currentTurn.BeginTurn();
+        if (RMAlteration != 0)
+        {
+            FindAnyObjectByType<HudUI>(FindObjectsInactive.Include).ShowRMAlteration(RMAlteration);
+        }
     }
 
     internal void SetNextMask(CollectorMask collectorMask)
@@ -83,6 +88,7 @@ public class TurnManager : MonoBehaviour
     public void SetCardsCheck()
     {
         currentTurn.haveToCheckCards = true;
+        currentTurn.healOnCheckCard++;
     }
 
     public bool CanEndTurn()

@@ -10,6 +10,11 @@ public class Collector : MonoBehaviour
     [SerializeField] private CollectorMask currentMask;
     [SerializeField] private int maxMaskTurnCount = 3;         // Massimo turni per una maschera
 
+    [Header("Maschere")]
+    [SerializeField] private GameObject martireMask;
+    [SerializeField] private GameObject accusatoreMask;
+    [SerializeField] private GameObject tentatoreMask;
+
     public CollectorMask CurrentMask
     {
         get => currentMask;
@@ -21,8 +26,9 @@ public class Collector : MonoBehaviour
                 currentMaskTurnCount = 0; // Resetto il contatore quando cambio maschera
 
                 // Aggiorna la UI
-                FindAnyObjectByType<HudUI>(FindObjectsInactive.Include)
-                    .UpdateMaskText(currentMask.name);
+                martireMask.SetActive(value is CM_Martire);
+                accusatoreMask.SetActive(value is CM_Accusatore);
+                tentatoreMask.SetActive(value is CM_Tentatore);
             }
             else if (value != null && currentMask == value)
             {
@@ -96,9 +102,17 @@ public class Collector : MonoBehaviour
     /// </summary>
     public void SetMask()
     {
+        if (currentMask == null)
+        {
+            CurrentMask = accusatore;
+            return;
+        }
+
         // 1) Controllo se devo forzare il cambio di maschera perché ho superato maxMaskTurnCount
         if (currentMask != null && currentMaskTurnCount >= maxMaskTurnCount)
         {
+            Debug.Log($"primo controllo: {currentMask != null}");
+            Debug.Log($"Secondo controllo: {currentMaskTurnCount} >= {maxMaskTurnCount}? {currentMaskTurnCount >= maxMaskTurnCount}");
             ForceRotateMask();
             return;
         }
@@ -110,22 +124,22 @@ public class Collector : MonoBehaviour
 
         // 4) Conto tutte le carte in scena e popolo i contatori interni
         Card[] cards = FindObjectsByType<Card>(FindObjectsSortMode.None);
-        Debug.Log($"Trovate {cards.Length} carte in scena per il conteggio delle maschere.");
+        //Debug.Log($"Trovate {cards.Length} carte in scena per il conteggio delle maschere.");
         foreach (Card card in cards)
         {
             if (card.cardData.cardType == CardTypes.Doloroso)
             {
-                Debug.Log($"Carta Dolorosa trovata: {card.cardData.cardName}");
+                //Debug.Log($"Carta Dolorosa trovata: {card.cardData.cardName}");
                 accusatore.AddCard();
             }
             if (HasDrawEffect(card))
             {
-                Debug.Log($"Carta con effetto di pesca trovata: {card.cardData.cardName}");
+                //Debug.Log($"Carta con effetto di pesca trovata: {card.cardData.cardName}");
                 tentatore.AddCard();
             }
             if (HasHealEffect(card))
             {
-                Debug.Log($"Carta con effetto di cura trovata: {card.cardData.cardName}");
+                //Debug.Log($"Carta con effetto di cura trovata: {card.cardData.cardName}");
                 martire.AddCard();
             }
         }

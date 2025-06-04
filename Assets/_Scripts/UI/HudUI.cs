@@ -7,12 +7,17 @@ using UnityEngine.UI;
 public class HudUI : BaseUI
 {
     [Header("Health Info")]
-    [SerializeField] private Slider playerHealthSlider;
+    [SerializeField] private List<GameObject> playerHealths = new();
     [SerializeField] private Slider enemyHealthSlider;
 
-    [SerializeField] private TextMeshProUGUI maskText;
+    [SerializeField] private List<GameObject> playerRMText;
 
-    [SerializeField] private TextMeshProUGUI playerRMText;
+    [Header("Card Hover")]
+    public Image cardHover;
+
+    [Header("Player Info")]
+    public GameObject discardACard;
+    public GameObject LessRMCost;
 
     private void Update()
     {
@@ -26,16 +31,31 @@ public class HudUI : BaseUI
 
     public void UpdateRM(int rm)
     {
-        playerRMText.text = "PlayerRM: " + rm;
+        foreach (GameObject g in playerRMText)
+        {
+            g.SetActive(false);
+        }
+        playerRMText[rm].SetActive(true);
     }
 
-    public void UpdatePlayerHealth(float health, float maxHealth)
+    public void UpdatePlayerHealth(int health)
     {
-        playerHealthSlider.value = health / maxHealth;
-        if (playerHealthSlider.value <= 0)
+        foreach (GameObject g in playerHealths)
         {
-            UIManager.instance.ShowUI(UIManager.GameUI.Lose);
+            g.SetActive(false);
         }
+        playerHealths[health].SetActive(true);
+
+        if (health <= 0)
+        {
+            StartCoroutine(LoseCoroutine());
+        }
+    }
+
+    private IEnumerator LoseCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        UIManager.instance.ShowUI(UIManager.GameUI.Lose);
     }
 
     public void UpdateEnemyHealth(float health, float maxHealth)
@@ -43,12 +63,24 @@ public class HudUI : BaseUI
         enemyHealthSlider.value = health / maxHealth;
         if (enemyHealthSlider.value <= 0)
         {
-            UIManager.instance.ShowUI(UIManager.GameUI.Win);
+            StartCoroutine(WinCoroutine());
         }
     }
 
-    public void UpdateMaskText(string maskName)
+    private IEnumerator WinCoroutine()
     {
-        maskText.text = "Mask:\n" + maskName;
+        yield return new WaitForSeconds(1f); // Wait for 1 second before showing the win UI
+        UIManager.instance.ShowUI(UIManager.GameUI.Win);
+    }
+
+    public void ShowRMAlteration(int i)
+    {
+        LessRMCost.SetActive(true);
+        LessRMCost.GetComponentInChildren<TextMeshProUGUI>().text = "In this turn cards will cost " + (-i) + " less";
+    }
+
+    public void HideRMAlteration()
+    {
+        LessRMCost.SetActive(false);
     }
 }
