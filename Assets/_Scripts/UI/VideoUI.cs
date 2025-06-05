@@ -14,9 +14,18 @@ public class VideoUI : BaseUI
 
     void Start()
     {
+        skipButton.SetActive(false);
         videoPlayer.loopPointReached += OnVideoEnd;
         double duration = videoPlayer.length;
-        targetTime = Mathf.Max(0f, (float)(duration - 3.0));
+        targetTime = Mathf.Max(0f, (float)(duration - 5.0));
+
+        StartCoroutine(WaitForVideoStart());
+    }
+
+    private System.Collections.IEnumerator WaitForVideoStart()
+    {
+        yield return new WaitForSeconds(2f);
+        skipButton.SetActive(true);
     }
 
     void OnVideoEnd(VideoPlayer vp)
@@ -35,7 +44,7 @@ public class VideoUI : BaseUI
     public void SkipVideo()
     {
         skipButton.SetActive(false);
-        videoPlayer.time = targetTime;
+        videoPlayer.time = targetTime + 2.0f;
     }
 
     private void Update()

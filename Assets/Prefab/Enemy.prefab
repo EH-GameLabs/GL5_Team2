@@ -1240,7 +1240,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7343624639216525904}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1268,7 +1268,7 @@ MonoBehaviour:
   - {fileID: 5576975994278344027}
   - {fileID: 602115884432330757}
   currentMask: {fileID: 0}
-  maxMaskTurnCount: 3
+  maxMaskTurnCount: 2
   martireMask: {fileID: 1069604494840680410}
   accusatoreMask: {fileID: 2310521393881268358}
   tentatoreMask: {fileID: 6328992791911086363}

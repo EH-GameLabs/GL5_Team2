@@ -8,7 +8,7 @@ public class Collector : MonoBehaviour
     [Header("Maschere Disponibili")]
     [SerializeField] private CollectorMask[] masks;            // Suppongo che masks[0] sia la maschera di default
     [SerializeField] private CollectorMask currentMask;
-    [SerializeField] private int maxMaskTurnCount = 3;         // Massimo turni per una maschera
+    [SerializeField] private int maxMaskTurnCount = 2;         // Massimo turni per una maschera
 
     [Header("Maschere")]
     [SerializeField] private GameObject martireMask;
@@ -76,6 +76,14 @@ public class Collector : MonoBehaviour
         }
     }
 
+    public void ActivateMaskEffect()
+    {
+        if (CurrentMask != null)
+        {
+            CurrentMask.ActivateMaskEffect();
+        }
+    }
+
     private bool HasHealEffect(Card card)
     {
         foreach (var effect in card.cardData.effects)
@@ -89,6 +97,8 @@ public class Collector : MonoBehaviour
                 }
             }
             if (effect is E_GainLife)
+                return true;
+            if (effect is E_If2CardsHeal)
                 return true;
         }
         return false;
@@ -273,10 +283,15 @@ public class Collector : MonoBehaviour
         bool canAccusatore = countAccusatore >= 2;
         bool canTentatore = countTentatore >= 2;
 
+        Debug.LogError($"Conteggio Maschere: Martire={countMartire}, Accusatore={countAccusatore}, Tentatore={countTentatore}");
+        Debug.LogError($"Maschere eleggibili: Martire={canMartire}, Accusatore={canAccusatore}, Tentatore={canTentatore}");
+        Debug.LogError($"CurrentMask: {currentMask}");
+
         // 6) Se nessuna è eleggibile (>= 2 carte), assegno la maschera di default (masks[0])
         if (!canMartire && !canAccusatore && !canTentatore)
         {
-            CurrentMask = masks[0];
+            Debug.LogWarning("1 - Nessuna maschera eleggibile, assegno la maschera di default.");
+            SetMaskDefault();
             return;
         }
 
@@ -287,20 +302,43 @@ public class Collector : MonoBehaviour
             canTentatore ? countTentatore : 0
         );
 
-        if (canMartire && countMartire == maxCount)
+
+        if (canMartire && countMartire == maxCount && currentMask != martire)
         {
+            Debug.Log("Martire - Cambio maschera");
             CurrentMask = martire;
         }
-        else if (canAccusatore && countAccusatore == maxCount)
+        else if (canAccusatore && countAccusatore == maxCount && currentMask != accusatore)
         {
+            Debug.Log("Accusatore - Cambio maschera");
             CurrentMask = accusatore;
+        }
+        else if (canTentatore && countTentatore == maxCount && currentMask != accusatore)
+        {
+            Debug.Log("Tentatore - Cambio maschera");
+            CurrentMask = tentatore;
         }
         else
         {
-            CurrentMask = tentatore;
+            Debug.LogWarning("2 - Nessuna maschera eleggibile, assegno la maschera di default.");
+            SetMaskDefault();
         }
 
         SoundManager.Instance.PLaySFXSound(SoundManager.Instance.changeMask);
 
+    }
+
+    public void SetMaskDefault()
+    {
+        Debug.Log($"currentMask is CM_Accusatore? {currentMask is CM_Accusatore}");
+        Debug.Log("CurrentMask: " + currentMask);
+        if (currentMask is CM_Accusatore)
+        {
+            CurrentMask = tentatore;
+        }
+        else
+        {
+            CurrentMask = accusatore;
+        }
     }
 }

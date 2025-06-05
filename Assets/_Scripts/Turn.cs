@@ -133,7 +133,7 @@ public class Turn
                     }
                     effect.Effect();
                     previousCardEffect = effect.Effect;
-                    previousCardLifeTime = cardComponent.lifetime;
+                    previousCardLifeTime = cardComponent.cardData.lifeTime;
                     if (cardComponent.cardData.cardType == CardTypes.Doloroso && effect is E_DoDamage)
                     {
                         CM_Accusatore accusatore = GameObject.FindAnyObjectByType<CM_Accusatore>();
@@ -143,7 +143,7 @@ public class Turn
                     }
                 }
 
-                if (collectorCanActivateEffect /*&& ha senso attivarla*/)
+                if (collectorCanActivateEffect)
                 {
                     Collector.Instance.ActivateMaskEffect(cardComponent);
                 }
@@ -175,14 +175,22 @@ public class Turn
             }
         }
 
+        if (haveToCheckCards && GameManager.Instance.GetNCards() == 2)
+        {
+            if (GameManager.Instance.PlayerLife < GameManager.Instance.playerMaxLife)
+            {
+                healed = true;
+                GameManager.Instance.PlayerLife += healOnCheckCard;
+                if (collectorCanActivateEffect)
+                {
+                    Collector.Instance.ActivateMaskEffect();
+                }
+            }
+        }
+
         if (haveToCheckHealed && healed)
         {
             GameManager.Instance.EnemyLife -= damageOnHealed;
-        }
-
-        if (haveToCheckCards && GameManager.Instance.GetNCards() == 2)
-        {
-            GameManager.Instance.PlayerLife += healOnCheckCard;
         }
 
         DeckManager.Instance.ShuffleDeck();

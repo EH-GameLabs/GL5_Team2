@@ -8,7 +8,9 @@ public class HudUI : BaseUI
 {
     [Header("Health Info")]
     [SerializeField] private List<GameObject> playerHealths = new();
+
     [SerializeField] private Slider enemyHealthSlider;
+    [SerializeField] private TextMeshProUGUI enemyHealthTextTMP;
 
     [SerializeField] private List<GameObject> playerRMText;
 
@@ -64,6 +66,9 @@ public class HudUI : BaseUI
     bool isWin = false;
     public void UpdateEnemyHealth(float health, float maxHealth)
     {
+        if (health < 0) health = 0;
+
+        enemyHealthTextTMP.text = health.ToString();
         enemyHealthSlider.value = health / maxHealth;
         if (enemyHealthSlider.value <= 0)
         {
