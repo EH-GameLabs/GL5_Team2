@@ -6,8 +6,8 @@ public class MainMenuUI : BaseUI
 {
     public void GoToHud()
     {
-        TurnManager.Instance.StartGame();
-        UIManager.instance.ShowUI(UIManager.GameUI.HUD);
+        SoundManager.Instance.PauseMusic();
+        UIManager.instance.ShowUI(UIManager.GameUI.Video);
     }
 
     public void GoToOptions()

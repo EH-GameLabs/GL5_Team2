@@ -20,20 +20,20 @@ public class TurnManager : MonoBehaviour
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         Instance = this;
+        currentTurn = new Turn();
     }
 
     public void StartGame()
     {
+        Time.timeScale = 1.0f;
         DeckManager.Instance.InitializeDeck();
-        currentTurn = new Turn();
 
         // Il giocatore sceglie una Maschera, che determina bonus e malus iniziali.
 
         currentTurn.BeginTurn();
 
 
-        SoundManager.Instance.PlayMusic();
-        Time.timeScale = 1.0f;
+        SoundManager.Instance.PlayMusic(SoundManager.Instance.backgroundMusic);
     }
 
     public void ActivateCardsEffects()

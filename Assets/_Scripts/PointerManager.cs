@@ -69,6 +69,19 @@ public class PointerManager : MonoBehaviour
                 }
                 card.GetComponent<Collider>().enabled = true;
             }
+            else if (hitting && hit.collider.CompareTag("Slot") && hit.transform.GetComponentInChildren<Card>().isPlaced && card.GetComponent<Card>().isPlaced)
+            {
+                Transform parent = card.parent; // Salvo il genitore originale della carta
+                Vector3 targetPosition = parent.transform.position; // Posizione del genitore della carta (slot)
+                card.position = hit.transform.position;
+                card.transform.SetParent(hit.transform); // Posiziono la carta nello slot
+                card.GetComponent<Card>().SetStartPos(card.position);
+                card.GetComponent<Collider>().enabled = true;
+                Transform targetCard = hit.transform.GetComponentInChildren<Card>().transform;
+                targetCard.position = targetPosition;
+                targetCard.SetParent(parent);
+                targetCard.GetComponent<Card>().SetStartPos(targetCard.position);
+            }
             else
             {
                 //card.SetPositionAndRotation(originPosition, Quaternion.Euler(originRotation));

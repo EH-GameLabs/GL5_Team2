@@ -189,26 +189,42 @@ public class Collector : MonoBehaviour
         //     - Se Martire eleggibile e countMartire == maxCount, scelgo Martire.
         //     - Altrimenti, se Accusatore eleggibile e countAccusatore == maxCount, scelgo Accusatore.
         //     - Altrimenti, scegli Tentatore.
+        bool hasChangedMask = false;
+
         if (canMartire && countMartire == maxCount)
         {
             if (CurrentMask != martire)
+            {
                 CurrentMask = martire;
+                hasChangedMask = true;
+            }
             else
                 currentMaskTurnCount++;
         }
         else if (canAccusatore && countAccusatore == maxCount)
         {
             if (CurrentMask != accusatore)
+            {
                 CurrentMask = accusatore;
+                hasChangedMask = true;
+            }
             else
                 currentMaskTurnCount++;
         }
         else // canTentatore && countTentatore == maxCount
         {
             if (CurrentMask != tentatore)
+            {
                 CurrentMask = tentatore;
+                hasChangedMask = true;
+            }
             else
                 currentMaskTurnCount++;
+        }
+
+        if (hasChangedMask)
+        {
+            SoundManager.Instance.PLaySFXSound(SoundManager.Instance.changeMask);
         }
     }
 
@@ -283,5 +299,8 @@ public class Collector : MonoBehaviour
         {
             CurrentMask = tentatore;
         }
+
+        SoundManager.Instance.PLaySFXSound(SoundManager.Instance.changeMask);
+
     }
 }

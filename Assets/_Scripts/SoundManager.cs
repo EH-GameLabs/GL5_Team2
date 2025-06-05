@@ -24,12 +24,13 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip button;
 
     [Header("MUSICS")]
-    [SerializeField] private AudioClip backgroundMusic;
+    public AudioClip backgroundMusic;
+    public AudioClip mainMenuMusic;
 
     private void Start()
     {
-        musicSource.clip = backgroundMusic;
         SetButtonSound();
+        PlayMusic(mainMenuMusic);
     }
 
     public void SetMusicVolume(float volume)
@@ -42,8 +43,13 @@ public class SoundManager : MonoBehaviour
         sfxSource.volume = volume;
     }
 
-    public void PlayMusic()
+    public void PlayMusic(AudioClip music)
     {
+        if (musicSource.isPlaying)
+        {
+            musicSource.Stop();
+        }
+        musicSource.clip = music;
         musicSource.Play();
     }
 
