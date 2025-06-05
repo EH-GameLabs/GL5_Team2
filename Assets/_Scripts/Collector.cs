@@ -80,6 +80,14 @@ public class Collector : MonoBehaviour
     {
         foreach (var effect in card.cardData.effects)
         {
+            if (effect is E_Foreach_Do)
+            {
+                E_Foreach_Do doEffect = (E_Foreach_Do)effect;
+                if (doEffect.GetEffectToActivate() is E_GainLife)
+                {
+                    return true;
+                }
+            }
             if (effect is E_GainLife)
                 return true;
         }
@@ -90,6 +98,14 @@ public class Collector : MonoBehaviour
     {
         foreach (var effect in card.cardData.effects)
         {
+            if (effect is E_Foreach_Do)
+            {
+                E_Foreach_Do doEffect = (E_Foreach_Do)effect;
+                if (doEffect.GetEffectToActivate() is E_DrawCards)
+                {
+                    return true;
+                }
+            }
             if (effect is E_DrawCards)
                 return true;
         }

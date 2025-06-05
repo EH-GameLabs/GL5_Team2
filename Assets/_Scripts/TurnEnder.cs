@@ -5,12 +5,15 @@ public class TurnEnder : MonoBehaviour, IInteractable
     [Header("Materials")]
     [SerializeField] private Material defaultMaterial;
     [SerializeField] private Material hoverMaterial;
-    private MeshRenderer meshRenderer;
+    [SerializeField] private MeshRenderer meshRenderer;
+
+    private Animator animator;
 
     private void Start()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
+        //meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.material = defaultMaterial;
+        animator = GetComponent<Animator>();
     }
     public void OnHover()
     {
@@ -30,6 +33,11 @@ public class TurnEnder : MonoBehaviour, IInteractable
         // Logica per gestire il click
         //Debug.Log("Click su TurnEnder");
         if (!TurnManager.Instance.CanEndTurn()) return;
+        animator.SetTrigger("EndTurn");
+    }
+
+    public void OnEndAnimation()
+    {
         TurnManager.Instance.ActivateCardsEffects();
         SoundManager.Instance.PLaySFXSound(SoundManager.Instance.endTurn);
     }

@@ -15,6 +15,11 @@ public class OptionUI : BaseUI
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider sfxVolumeSlider;
 
+    private void OnEnable()
+    {
+        SetPanelActive(audioPanel);
+    }
+
     private void Start()
     {
         musicVolumeSlider.value = SoundManager.Instance.GetMusicVolume();

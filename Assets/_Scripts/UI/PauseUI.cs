@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 public class PauseUI : BaseUI
 {
 
+    [SerializeField] private GameObject popupPanel;
+
+    private void OnEnable()
+    {
+        popupPanel.SetActive(false);
+    }
+
     public void GoToMainMenu()
     {
         SceneManager.LoadScene(0);

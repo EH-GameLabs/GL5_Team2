@@ -19,4 +19,9 @@ public class E_Foreach_Do : SO_Effect
             }
         }
     }
+
+    public SO_Effect GetEffectToActivate()
+    {
+        return effectToActivate;
+    }
 }

@@ -12,6 +12,16 @@ public class DeckManager : MonoBehaviour
 
     [Header("Current Deck")]
     [SerializeField] private List<Card> currentDeck = new();
+    [SerializeField] private Transform deckModel;
+    [SerializeField] private float cardHeight = 0.1f;
+
+    private void UpdateDeck()
+    {
+        deckModel.position = Vector3.zero;
+        float deckCounter = deck.Count;
+        float currentDeckCounter = currentDeck.Count;
+        deckModel.position = new Vector3(0, -(deckCounter - currentDeckCounter) * cardHeight, 0);
+    }
 
     private void Awake()
     {
@@ -35,6 +45,7 @@ public class DeckManager : MonoBehaviour
         foreach (Card card in deck)
         {
             currentDeck.Add(card);
+            UpdateDeck();
         }
         ShuffleDeck();
     }
@@ -56,6 +67,7 @@ public class DeckManager : MonoBehaviour
         {
             Debug.Log($"Added: {c}");
             currentDeck.Add(c);
+            UpdateDeck();
         }
     }
 
@@ -64,6 +76,7 @@ public class DeckManager : MonoBehaviour
     {
         Card card = currentDeck[^1];
         currentDeck.RemoveAt(currentDeck.Count - 1);
+        UpdateDeck();
         return card;
     }
 
@@ -73,6 +86,7 @@ public class DeckManager : MonoBehaviour
         if (card != null)
         {
             currentDeck.Remove(card);
+            UpdateDeck();
         }
         return card;
     }

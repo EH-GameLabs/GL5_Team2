@@ -38,6 +38,7 @@ public class HudUI : BaseUI
         playerRMText[rm].SetActive(true);
     }
 
+    bool isLose = false;
     public void UpdatePlayerHealth(int health)
     {
         foreach (GameObject g in playerHealths)
@@ -48,27 +49,32 @@ public class HudUI : BaseUI
 
         if (health <= 0)
         {
-            StartCoroutine(LoseCoroutine());
+            if (!isLose)
+                StartCoroutine(LoseCoroutine());
         }
     }
 
     private IEnumerator LoseCoroutine()
     {
+        isLose = true;
         yield return new WaitForSeconds(1f);
         UIManager.instance.ShowUI(UIManager.GameUI.Lose);
     }
 
+    bool isWin = false;
     public void UpdateEnemyHealth(float health, float maxHealth)
     {
         enemyHealthSlider.value = health / maxHealth;
         if (enemyHealthSlider.value <= 0)
         {
-            StartCoroutine(WinCoroutine());
+            if (!isWin)
+                StartCoroutine(WinCoroutine());
         }
     }
 
     private IEnumerator WinCoroutine()
     {
+        isWin = true;
         yield return new WaitForSeconds(1f); // Wait for 1 second before showing the win UI
         UIManager.instance.ShowUI(UIManager.GameUI.Win);
     }
