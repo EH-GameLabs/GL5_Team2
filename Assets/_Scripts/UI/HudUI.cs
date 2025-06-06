@@ -60,7 +60,13 @@ public class HudUI : BaseUI
     {
         isLose = true;
         yield return new WaitForSeconds(1f);
-        UIManager.instance.ShowUI(UIManager.GameUI.Lose);
+
+        SoundManager.Instance.PauseMusic();
+
+        UIManager.instance.ShowUI(UIManager.GameUI.Video);
+
+        VideoUI videoUI = FindAnyObjectByType<VideoUI>(FindObjectsInactive.Include);
+        videoUI.PlayVideo(VideoType.Lose);
     }
 
     bool isWin = false;
@@ -81,7 +87,13 @@ public class HudUI : BaseUI
     {
         isWin = true;
         yield return new WaitForSeconds(1f); // Wait for 1 second before showing the win UI
-        UIManager.instance.ShowUI(UIManager.GameUI.Win);
+
+        SoundManager.Instance.PauseMusic();
+
+        UIManager.instance.ShowUI(UIManager.GameUI.Video);
+
+        VideoUI videoUI = FindAnyObjectByType<VideoUI>(FindObjectsInactive.Include);
+        videoUI.PlayVideo(VideoType.Win);
     }
 
     public void ShowRMAlteration(int i)

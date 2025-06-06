@@ -7,7 +7,11 @@ public class MainMenuUI : BaseUI
     public void GoToHud()
     {
         SoundManager.Instance.PauseMusic();
+
         UIManager.instance.ShowUI(UIManager.GameUI.Video);
+
+        VideoUI videoUI = FindAnyObjectByType<VideoUI>(FindObjectsInactive.Include);
+        videoUI.PlayVideo(VideoType.Intro);
     }
 
     public void GoToOptions()

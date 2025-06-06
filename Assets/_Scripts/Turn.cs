@@ -25,8 +25,10 @@ public class Turn
     public bool haveToCheckCards = false;
     public int healOnCheckCard = 0;
 
-    private delegate void CardEffect();
-    CardEffect previousCardEffect;
+    //private delegate void CardEffect();
+    //CardEffect previousCardEffect;
+
+    private Action previousCardEffect;
 
     private int previousCardLifeTime = 0;
 
@@ -70,37 +72,6 @@ public class Turn
 
     }
 
-    //public async Task ActivationPhase(List<GameObject> cardSlot)
-    //{
-    //    turnState = TurnState.ActivationPhase;
-    //    // Logica di attivazione di effetti delle carte
-    //    Debug.Log("Attivazione carte: " + turnType);
-
-    //    // Esegui gli effetti delle carte
-    //    foreach (GameObject card in cardSlot)
-    //    {
-    //        // Esegui l'effetto della carta
-    //        Card cardComponent = card.GetComponentInChildren<Card>();
-    //        if (cardComponent != null)
-    //        {
-    //            // Esegui l'effetto della carta
-    //            Debug.Log("Attivazione effetto carta: "/* + cardComponent.cardData.cardName*/);
-    //            // cardComponent.ActivateEffect();
-    //            await Task.Delay(1000);
-    //            GameObject.Destroy(cardComponent.gameObject);
-    //            await Task.Delay(1000);
-    //        }
-    //        else
-    //        {
-    //            Debug.LogWarning("Nessun componente Card trovato su: " + card.name);
-    //        }
-    //    }
-
-    //    //await Task.Delay(2000);
-    //    Debug.Log("-> End Turn!");
-    //    EndTurn();
-    //}
-
     public IEnumerator ActivationPhase(List<GameObject> cardSlot)
     {
         turnState = TurnState.ActivationPhase;
@@ -123,17 +94,28 @@ public class Turn
                 }
 
                 Debug.Log("Attivazione effetto carta: "/* + cardComponent.cardData.cardName*/);
+
+                if (cardComponent.cardData.effects[0] is not E_Duplicate)
+                {
+                    previousCardEffect = null;
+                }
+
                 foreach (SO_Effect effect in cardComponent.cardData.effects)
                 {
                     if (effect is E_Duplicate)
                     {
-                        previousCardEffect?.Invoke();
-                        cardComponent.lifetime = previousCardLifeTime;
+                        if (!cardComponent.alreadyDuplicated)
+                        {
+                            cardComponent.effectToActivate = previousCardEffect;
+                            cardComponent.lifetime = previousCardLifeTime;
+                        }
+                        cardComponent.effectToActivate?.Invoke();
+                        cardComponent.alreadyDuplicated = true;
                         break;
                     }
                     effect.Effect();
-                    previousCardEffect = effect.Effect;
-                    previousCardLifeTime = cardComponent.cardData.lifeTime;
+                    previousCardEffect += effect.Effect;
+                    previousCardLifeTime = cardComponent.cardData.lifeTime - 1;
                     if (cardComponent.cardData.cardType == CardTypes.Doloroso && effect is E_DoDamage)
                     {
                         CM_Accusatore accusatore = GameObject.FindAnyObjectByType<CM_Accusatore>();

@@ -7,6 +7,8 @@ public class Card : MonoBehaviour, IInteractable
 {
     [Header("Card Data")]
     public SO_Card cardData;
+    public bool alreadyDuplicated = false;
+    public Action effectToActivate;
 
     [Header("Interactable")]
     [SerializeField] private GameObject interactableObj;

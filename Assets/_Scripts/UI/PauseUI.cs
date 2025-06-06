@@ -16,6 +16,7 @@ public class PauseUI : BaseUI
     public void GoToMainMenu()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1f;
     }
 
     public void GoToHud()
