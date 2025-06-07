@@ -66,9 +66,7 @@ public class VideoUI : BaseUI
 
     private IEnumerator WaitForVideoStart()
     {
-        Debug.LogWarning("Attesa di 2 secondi prima di mostrare il pulsante di salto del video...");
         yield return new WaitForSeconds(2f);
-        Debug.LogWarning("Mostra il pulsante di salto del video.");
         skipButton.SetActive(true);
     }
 

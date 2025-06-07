@@ -86,7 +86,10 @@ public class GameManager : MonoBehaviour
                 continue;
             }
 
-            currentCard = Instantiate(DeckManager.Instance.DrawCard(value), Vector3.zero, Quaternion.identity);
+            Card c = DeckManager.Instance.DrawCard(value);
+            if (c == null) break;
+
+            currentCard = Instantiate(c, Vector3.zero, Quaternion.identity);
 
             StartCoroutine(CardAnimation(currentCard.gameObject, i));
 
